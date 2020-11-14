@@ -1,0 +1,4 @@
+﻿  test.c
+C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(17,6): warning C4013: 'rule' undefined; assuming extern returning int
+C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(39): warning C4716: 'rule': must return a value
+  Project2.vcxproj -> C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Debug\Project2.exe
