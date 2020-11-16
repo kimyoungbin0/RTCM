@@ -1,4 +1,6 @@
 ﻿  test.c
-C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(17,6): warning C4013: 'rule' undefined; assuming extern returning int
-C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(39): warning C4716: 'rule': must return a value
-  Project2.vcxproj -> C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Debug\Project2.exe
+C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(75,27): warning C4047: 'function': 'int *' differs in levels of indirection from 'int [4][7]'
+C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(75,16): warning C4024: 'finish_rule': different types for formal and actual parameter 1
+C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(36): warning C4716: 'finish_rule': must return a value
+LINK : fatal error LNK1168: cannot open C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Debug\Project2.exe for writing
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(876,5): error MSB6006: "link.exe" exited with code 1168.
