@@ -22,7 +22,7 @@ void choice2(int* _gameplayers) // 같은 색깔의 보석 토큰 2개 가져오기
 {
 	// 보석 토큰은 총 10개까지 보유, 색깔이 4개이상 남아있어야 2개 가져올 수 있음
 }
-void choice3(int* _gameplayers,int _card_discount) // 개발 카드 구매하기
+void choice3(int* _gameplayers,int* _card_discount) // 개발 카드 구매하기
 {
 	// 개발 카드에 표시된 만큼 토큰을 지불하여 카드를 구입한다
 	// 개발 카드에 제공하는 보석만큼 할인
@@ -51,7 +51,7 @@ int main(void)
 	int card_discount[4][5] = { 0 };  // 플레이어별 카드(개발,귀족)로 인한 할인 
 
 	printf("SPLENDER\n");
-	printf("몇 명에서 하신 건가요?(2~4인용 게임)");
+	printf("몇 명에서 하실 건가요?(2~4인용 게임)");
 	scanf_s("%d", &players);
 
 	// 난수를 이용해 플레이어 수에 맞게 카드, 토큰 배분  
