@@ -80,7 +80,7 @@ void print_map(int players, int gameplayers[][7], Card *blue, Card *orange, Card
 	printf("          |");
 	for (int n = 0; n < 4; n++)
 	{
-		printf("%d %d %d %d %d |", green[players].needtok_white, green[players].needtok_blue, blue[players].needtok_red, blue[players].needtok_brown, blue[players].needtok_green);
+		printf("%d %d %d %d %d |", green[n].needtok_white, green[n].needtok_blue, blue[n].needtok_red, blue[n].needtok_brown, blue[n].needtok_green);
 	}
 	printf("\n");
 	
@@ -100,7 +100,7 @@ void print_map(int players, int gameplayers[][7], Card *blue, Card *orange, Card
 	printf("          |");
 	for (int n = 0; n < 4; n++)
 	{
-		printf("%d %d %d %d %d |", orange[players].needtok_white, orange[players].needtok_blue, orange[players].needtok_red, orange[players].needtok_brown, orange[players].needtok_green);
+		printf("%d %d %d %d %d |", orange[n].needtok_white, orange[n].needtok_blue, orange[n].needtok_red, orange[n].needtok_brown, orange[n].needtok_green);
 	}
 	printf("\n");
 	
@@ -120,7 +120,7 @@ void print_map(int players, int gameplayers[][7], Card *blue, Card *orange, Card
 	printf("          |");
 	for (int n = 0; n < 4; n++)
 	{
-		printf("%d %d %d %d %d |", blue[players].needtok_white, blue[players].needtok_blue, green[players].needtok_red, green[players].needtok_brown, green[players].needtok_green);
+		printf("%d %d %d %d %d |", blue[n].needtok_white, blue[n].needtok_blue, green[n].needtok_red, green[n].needtok_brown, green[n].needtok_green);
 	}
 	printf("\n");
 	
@@ -135,7 +135,7 @@ void print_map(int players, int gameplayers[][7], Card *blue, Card *orange, Card
 	printf("\n");
 	for (int n = 0; n < players; n++)
 	{
-		printf("  점수: %2d  |", gameplayers[players][6]);
+		printf("  점수: %2d  |", gameplayers[n][6]);
 	}
 	printf("\n");
 	for (int n = 0; n < players; n++)
@@ -145,7 +145,7 @@ void print_map(int players, int gameplayers[][7], Card *blue, Card *orange, Card
 	printf("\n");
 	for (int n = 0; n < players; n++)
 	{
-		printf("%d %d %d %d %d %d |", gameplayers[players][0], gameplayers[players][1], gameplayers[players][2], gameplayers[players][3], gameplayers[players][4], gameplayers[players][5]);
+		printf("%d %d %d %d %d %d |", gameplayers[n][0], gameplayers[n][1], gameplayers[n][2], gameplayers[n][3], gameplayers[n][4], gameplayers[n][5]);
 	}
 	printf("\n");
 
