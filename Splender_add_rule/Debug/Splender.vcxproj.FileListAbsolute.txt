@@ -1,0 +1,2 @@
+D:\컴공\c프로그래밍2\Board game team project\Splender\Debug\Splender.exe
+D:\컴공\c프로그래밍2\Board game team project\Splender\Debug\Splender.pdb
