@@ -1,0 +1,2 @@
+C:\Users\김예원\source\repos\Splender_add_rule\Debug\Splender_add_rule.exe
+C:\Users\김예원\source\repos\Splender_add_rule\Debug\Splender_add_rule.pdb
