@@ -18,33 +18,13 @@ typedef struct card {                   // 카드 구조체
 void choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색깔의 보석 3개 가져오기
 {
     // 보석 토큰은 총 10개까지 보유, 색깔이 4개이상 남아있어야 2개 가져올 수 있음
-    int choice[3];
-    printf("3가지 토큰을 고르시오 0:white 1:blue 2.red 3.brown 4.green\n");
-    while (1) {
-        scanf_s("%d %d %d", &choice[0], &choice[1], &choice[2]);
-        if (totaltok[choice[0]] == 0 || totaltok[choice[1]] == 0 || totaltok[choice[2]] == 0)
-            printf("다시 입력하시오");
-        else
-            break;
-    }
-    gameplayers[turn][choice[0]]++;
-    gameplayers[turn][choice[1]]++;
+   
     gameplayers[turn][choice[2]]++;
 
 }
 void choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 보석 토큰 2개 가져오기
 {
-    // 보석 토큰은 총 10개까지 보유, 색깔이 4개이상 남아있어야 2개 가져올 수 있음
-    int choice;
-    printf("1가지 토큰을 고르시오 0:white 1:blue 2.red 3.brown 4.green\n");
-    while (1) {
-        scanf_s("%d", &choice);
-        if (totaltok[choice] == 0)
-            printf("다시 입력하시오");
-        else
-            break;
-    }
-    gameplayers[turn][choice] += 2;
+   
 
 }
 int choice3(int* _gameplayers, int* _card_discount) // 개발 카드 구매하기
@@ -290,7 +270,7 @@ int main(void)
     }
     for (int n = 0; n < 30; n++)
     {
-        int check[40] = { 0 };
+        int check[30] = { 0 };
         while (1) {
             int k = rand() % 30;
             if (check[k] == 0) {
@@ -299,101 +279,102 @@ int main(void)
                 break;
             }
         }
-        for (int n = 0; n < 20; n++)
-        {
-            int check[40] = { 0 };
-            while (1) {
-                int k = rand() % 20;
-                if (check[k] == 0) {
+    }
+    for (int n = 0; n < 20; n++)
+    {
+         int check[20] = { 0 };
+         while (1) {
+             int k = rand() % 20;
+             if (check[k] == 0) {
                     mixgreen[n] = green[k];
                     check[k] = 1;
                     break;
-                }
-            }
-        }
-        for (int n = 0; n < players + 1; n++)
-        {
-            int check[10] = { 0 };
-            int k = rand() % 10;
-            while (1) {
-                if (check[k] == 0) {
+             }
+         }
+    }
+    for (int n = 0; n < players + 1; n++)
+    {
+         int check[10] = { 0 };
+         int k = rand() % 10;
+         while (1) {
+              if (check[k] == 0) {
                     mixnob[n] = nob[k];
                     check[k] = 1;
                     break;
-                }
-            }
-        }
-
-        // 랜덤으로 배열한 카드중 게임에 펼칠 카드 4개를 나타내는 배열
-        Card setblue[4] = { mixblue[0],mixblue[1],mixblue[2],mixblue[3] };
-        Card setorange[4] = { mixorange[0],mixorange[1],mixorange[2],mixorange[3] };
-        Card setgreen[4] = { mixgreen[0],mixgreen[1],mixgreen[2],mixgreen[3] };
-        Card setnob[5] = { mixnob[0],mixnob[1],mixnob[2],mixnob[3],mixnob[4] };
-
-        while (1)              // 게임이 끝날때까지 턴이 반복됌
-        {
-            for (int n = 0; n < players; n++)
-            {
-                print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard);   // 매턴마다 게임판을 보여줌
-                printf("----------------player%d turn----------------\n", n);
-                printf("*선택*\n1.서로 다른 색깔의 보석 토큰 3개 가져오기\n2.같은 색깔의 보석 토큰 2개 가져오기\n3.개발 카드 구매하기\n4.개발 카드 예약하기\n");
-                scanf_s("%d", &choice);              // 플레이어가 1~4중에서 선택을함
-                switch (choice)
-                {
-                case 1:
-                    choice1(gameplayers, totaltok, n);
-                    break;
-                case 2:
-                    choice2(gameplayers, totaltok, n);
-                    break;
-                case 3:
-                {
-                    int number = choice3(gameplayers[players], card_discount[players]);      // 개발 카드 산 번호를 return 한다
-                    int changecard = put_card(blue, orange, green, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
-                    emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
-                    break;
-                }
-
-                case 4:
-                    choice4(gameplayers[players]);
-                    break;
-                }
-                rule(gameplayers, card_discount, players, n, setnob);      // 매턴마다 룰을 적용시킨다.
-                if (check_score(gameplayers, players, n) == 1)             // 마지막 턴일 때!!!!
-                {
-                    while (n <= players)
-                    {
-                        print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard);   // 매턴마다 게임판을 보여줌
-                        printf("----------------player%d turn----------------\n", n);
-                        printf("*선택*\n1.서로 다른 색깔의 보석 토큰 3개 가져오기\n2.같은 색깔의 보석 토큰 2개 가져오기\n3.개발 카드 구매하기\n4.개발 카드 예약하기\n");
-                        scanf_s("%d", &choice);              // 플레이어가 1~4중에서 선택을함
-                        switch (choice)
-                        {
-                        case 1:
-                            choice1(gameplayers, totaltok, n);
-                            break;
-                        case 2:
-                            choice2(gameplayers, totaltok, n);
-                            break;
-                        case 3:
-                        {
-                            int number = choice3(gameplayers[players], card_discount[players]);      // 개발 카드 산 번호를 return 한다
-                            int changecard = put_card(blue, orange, green, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
-                            emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
-                            break;
-                        }
-
-                        case 4:
-                            choice4(gameplayers[players]);
-                            break;
-                        }
-                        n++;
-                    }
-                    break;
-                }
-                    
-            }
-            break;
-        }
+              }
+         }
     }
+
+     // 랜덤으로 배열한 카드중 게임에 펼칠 카드 4개를 나타내는 배열
+     Card setblue[4] = { mixblue[0],mixblue[1],mixblue[2],mixblue[3] };
+     Card setorange[4] = { mixorange[0],mixorange[1],mixorange[2],mixorange[3] };
+     Card setgreen[4] = { mixgreen[0],mixgreen[1],mixgreen[2],mixgreen[3] };
+     Card setnob[5] = { mixnob[0],mixnob[1],mixnob[2],mixnob[3],mixnob[4] };
+
+     while (1)              // 게임이 끝날때까지 턴이 반복됌
+     {
+         for (int n = 0; n < players; n++)
+         {
+              print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard);   // 매턴마다 게임판을 보여줌
+              printf("----------------player%d turn----------------\n", n);
+              printf("*선택*\n1.서로 다른 색깔의 보석 토큰 3개 가져오기\n2.같은 색깔의 보석 토큰 2개 가져오기\n3.개발 카드 구매하기\n4.개발 카드 예약하기\n");
+              scanf_s("%d", &choice);              // 플레이어가 1~4중에서 선택을함
+              switch (choice)
+              {
+               case 1:
+                  choice1(gameplayers, totaltok, n);
+                  break;
+              case 2:
+                  choice2(gameplayers, totaltok, n);
+                  break;
+              case 3:
+              {
+                  int number = choice3(gameplayers[players], card_discount[players]);      // 개발 카드 산 번호를 return 한다
+                  int changecard = put_card(blue, orange, green, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
+                  emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
+                  break;
+              }
+
+              case 4:
+                  choice4(gameplayers[players]);
+                  break;
+              }
+              rule(gameplayers, card_discount, players, n, setnob);      // 매턴마다 룰을 적용시킨다.
+              if (check_score(gameplayers, players, n) == 1)             // 마지막 턴일 때!!!!
+              {
+                  while (n <= players)
+                  {
+                      print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard);   // 매턴마다 게임판을 보여줌
+                      printf("----------------player%d turn----------------\n", n);
+                      printf("*선택*\n1.서로 다른 색깔의 보석 토큰 3개 가져오기\n2.같은 색깔의 보석 토큰 2개 가져오기\n3.개발 카드 구매하기\n4.개발 카드 예약하기\n");
+                      scanf_s("%d", &choice);              // 플레이어가 1~4중에서 선택을함
+                      switch (choice)
+                      {
+                      case 1:
+                          choice1(gameplayers, totaltok, n);
+                          break;
+                      case 2:
+                          choice2(gameplayers, totaltok, n);
+                          break;
+                      case 3:
+                      {
+                          int number = choice3(gameplayers[players], card_discount[players]);      // 개발 카드 산 번호를 return 한다
+                          int changecard = put_card(blue, orange, green, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
+                          emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
+                          break;
+                      }
+
+                      case 4:
+                          choice4(gameplayers[players]);
+                          break;
+                      }
+                      n++;
+                  }
+                  break;
+              }
+                    
+         }
+         break;
+       
+     }
 }
