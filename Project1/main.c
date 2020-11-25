@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef struct card {                   // Ä«µå ±¸Á¶Ã¼
+typedef struct card {                   // ì¹´ë“œ êµ¬ì¡°ì²´
     char card_type[10];
     int score;                   //gameplayers[][6]
     int needtok_white;           //gameplayers[][0]
@@ -13,7 +13,7 @@ typedef struct card {                   // Ä«µå ±¸Á¶Ã¼
     int needtok_green;           //gameplayers[][4]
 }Card;
 
-typedef struct card_nob {////±ÍÁ·Ä«µå ±¸Á¶Ã¼//////
+typedef struct card_nob {////ê·€ì¡±ì¹´ë“œ êµ¬ì¡°ì²´//////
     int score;
     int needcard_white;
     int needcard_blue;
@@ -23,27 +23,27 @@ typedef struct card_nob {////±ÍÁ·Ä«µå ±¸Á¶Ã¼//////
 }Card_nob;
 
 
-int choice1(int gameplayers[][7], int* totaltok, int turn)  // ¼­·Î ´Ù¸¥ »ö±òÀÇ º¸¼® 3°³ °¡Á®¿À±â
+int choice1(int gameplayers[][7], int* totaltok, int turn)  // ì„œë¡œ ë‹¤ë¥¸ ìƒ‰ê¹”ì˜ ë³´ì„ 3ê°œ ê°€ì ¸ì˜¤ê¸°
 {
-    // º¸¼® ÅäÅ«Àº ÃÑ 10°³±îÁö º¸À¯, »ö±òÀÌ 4°³ÀÌ»ó ³²¾ÆÀÖ¾î¾ß 2°³ °¡Á®¿Ã ¼ö ÀÖÀ½
+    // ë³´ì„ í† í°ì€ ì´ 10ê°œê¹Œì§€ ë³´ìœ , ìƒ‰ê¹”ì´ 4ê°œì´ìƒ ë‚¨ì•„ìˆì–´ì•¼ 2ê°œ ê°€ì ¸ì˜¬ ìˆ˜ ìˆìŒ
 }
-int choice2(int gameplayers[][7], int* totaltok, int turn) // °°Àº »ö±òÀÇ º¸¼® ÅäÅ« 2°³ °¡Á®¿À±â
+int choice2(int gameplayers[][7], int* totaltok, int turn) // ê°™ì€ ìƒ‰ê¹”ì˜ ë³´ì„ í† í° 2ê°œ ê°€ì ¸ì˜¤ê¸°
 {
-    // º¸¼® ÅäÅ«Àº ÃÑ 10°³±îÁö º¸À¯, »ö±òÀÌ 4°³ÀÌ»ó ³²¾ÆÀÖ¾î¾ß 2°³ °¡Á®¿Ã ¼ö ÀÖÀ½
+    // ë³´ì„ í† í°ì€ ì´ 10ê°œê¹Œì§€ ë³´ìœ , ìƒ‰ê¹”ì´ 4ê°œì´ìƒ ë‚¨ì•„ìˆì–´ì•¼ 2ê°œ ê°€ì ¸ì˜¬ ìˆ˜ ìˆìŒ
 }
-int choice3(int gameplayers[][7], int card_discount[][5], Card* blue, Card* orange, Card* green, int turn, int* totaltok, Card keepcard[][20]) // °³¹ß Ä«µå ±¸¸ÅÇÏ±â
+int choice3(int gameplayers[][7], int card_discount[][5], Card* blue, Card* orange, Card* green, int turn, int* totaltok, Card keepcard[][20]) // ê°œë°œ ì¹´ë“œ êµ¬ë§¤í•˜ê¸°
 {
 }
-int choice4(int gameplayers[][7], int turn, Card keepcard[][20], Card* blue, Card* orange, Card* green, int* totaltok) // °³¹ßÄ«µå ¿¹¾àÇÏ±â(with È²±İÅäÅ«)
+int choice4(int gameplayers[][7], int turn, Card keepcard[][20], Card* blue, Card* orange, Card* green, int* totaltok) // ê°œë°œì¹´ë“œ ì˜ˆì•½í•˜ê¸°(with í™©ê¸ˆí† í°)
 {
-    // °³¹ß Ä«µå¸¦ ±¸¸ÅÇÒ ¼ö ¾øÁö¸¸, ÃßÈÄ ±¸¸Å¸¦ Èñ¸ÁÇÏ¸é ÇØ´çÄ«µå¸¦ °¡Á®¿Í º¸°ü
-    // È²±İÅäÅ«µµ ÇÔ²² °¡Á®¿Â´Ù
+    // ê°œë°œ ì¹´ë“œë¥¼ êµ¬ë§¤í•  ìˆ˜ ì—†ì§€ë§Œ, ì¶”í›„ êµ¬ë§¤ë¥¼ í¬ë§í•˜ë©´ í•´ë‹¹ì¹´ë“œë¥¼ ê°€ì ¸ì™€ ë³´ê´€
+    // í™©ê¸ˆí† í°ë„ í•¨ê»˜ ê°€ì ¸ì˜¨ë‹¤
 }
-int rule(int gameplayers[][7], int card_discount[][5], int user_have_nob[], int players, int turn, Card_nob* setnob) ////¹Ù²ñ
+int rule(int gameplayers[][7], int card_discount[][5], int user_have_nob[], int players, int turn, Card_nob* setnob) ////ë°”ë€œ
 {
-    // ±ÍÁ· Ä«µå Á¶°ÇÀÌµÇ¸é ±ÍÁ· Ä«µå¸¦ ¾òÀ½ ( ¸¸¾à ¿©·¯°³¸é ¼±ÅÃÀ» ÇÒ ¼ö ÀÖ°Ô ÇØÁÜ and ±ÍÁ·¹æ¹®´Â ÇÑ¹ø¸¸ °¡´É)
+    // ê·€ì¡± ì¹´ë“œ ì¡°ê±´ì´ë˜ë©´ ê·€ì¡± ì¹´ë“œë¥¼ ì–»ìŒ ( ë§Œì•½ ì—¬ëŸ¬ê°œë©´ ì„ íƒì„ í•  ìˆ˜ ìˆê²Œ í•´ì¤Œ and ê·€ì¡±ë°©ë¬¸ëŠ” í•œë²ˆë§Œ ê°€ëŠ¥)
     int condition = 0;
-    int select_card[5] = { 0 }; // °í¸¦ ¼ö ÀÖ´Â ±ÍÁ· Ä«µå°¡ ¿©·¯ °³ÀÏ °æ¿ì °í¸¦ ¼ö ÀÖµµ·Ï ¹øÈ£ Á¦°ø
+    int select_card[5] = { 0 }; // ê³ ë¥¼ ìˆ˜ ìˆëŠ” ê·€ì¡± ì¹´ë“œê°€ ì—¬ëŸ¬ ê°œì¼ ê²½ìš° ê³ ë¥¼ ìˆ˜ ìˆë„ë¡ ë²ˆí˜¸ ì œê³µ
     int choose = 0;
     if (user_have_nob[turn] == 1)
     {
@@ -91,8 +91,8 @@ int rule(int gameplayers[][7], int card_discount[][5], int user_have_nob[], int 
 }
 int check_score(int gameplayers[][7], int turn)
 {
-    // ¸ÅÅÏ¸¶´Ù ÇÃ·¹ÀÌ¾î°¡ 15Á¡ÀÌ»ó ¸ğ¾Ò´ÂÁö È®ÀÎÈÄ ÀÖÀ¸¸é ±× ¹ÙÄû¸¦ ¸¶Áö¸·À¸·Î °ÔÀÓ Á¾·á(¸¶Áö¸· ¹ÙÄûÀÎ°É Ãâ·ÂÇØÁÜ, ¸¸¾à °°Àº Á¡¼ö°¡ ÀÖÀ»½Ã Ä«µå °³¼ö°¡ ´õ ÀÛÀº »ç¶÷ÀÌ ½Â¸®)
-    if (gameplayers[turn][6] >= 1)
+    // ë§¤í„´ë§ˆë‹¤ í”Œë ˆì´ì–´ê°€ 15ì ì´ìƒ ëª¨ì•˜ëŠ”ì§€ í™•ì¸í›„ ìˆìœ¼ë©´ ê·¸ ë°”í€´ë¥¼ ë§ˆì§€ë§‰ìœ¼ë¡œ ê²Œì„ ì¢…ë£Œ(ë§ˆì§€ë§‰ ë°”í€´ì¸ê±¸ ì¶œë ¥í•´ì¤Œ, ë§Œì•½ ê°™ì€ ì ìˆ˜ê°€ ìˆì„ì‹œ ì¹´ë“œ ê°œìˆ˜ê°€ ë” ì‘ì€ ì‚¬ëŒì´ ìŠ¹ë¦¬)
+    if (gameplayers[turn][6] >= 15)
     {
         printf("\n\n\nPlayer%d's score is %d.\n This is last turn\n\n\n", turn + 1, gameplayers[turn][6]);
         return 1;
@@ -106,8 +106,8 @@ int check_score(int gameplayers[][7], int turn)
 
 void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card* green, Card_nob* nob, int* totaltok, int* emtycard, int card_discount[][5], Card keepcard[][20], int turn)
 {
-    // ¸Å ÅÏ¸¶´Ù Ä«µå ¼¼ÆÃ »óÈ²À» ½Ã°¢È­ÇØÁÜ   
-    printf("-------------±ÍÁ·Ä«µå-----------------\n");
+    // ë§¤ í„´ë§ˆë‹¤ ì¹´ë“œ ì„¸íŒ… ìƒí™©ì„ ì‹œê°í™”í•´ì¤Œ   
+    printf("-------------ê·€ì¡±ì¹´ë“œ-----------------\n");
     for (int n = 0; n < players + 1; n++)
     {
         printf("     *    |");
@@ -115,12 +115,12 @@ void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card
     printf("\n");
     for (int n = 0; n < players + 1; n++)
     {
-        printf("  Á¡¼ö %d  |", nob[players].score);
+        printf("  ì ìˆ˜ %d  |", nob[players].score);
     }
     printf("\n");
     for (int n = 0; n < players + 1; n++)
     {
-        printf("ÈòÆÄ»¡°¥ÃÊ|");
+        printf("í°íŒŒë¹¨ê°ˆì´ˆ|");
     }
     printf("\n");
     for (int n = 0; n < players + 1; n++)
@@ -128,8 +128,8 @@ void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card
         printf("%d %d %d %d %d |", nob[n].needcard_white, nob[n].needcard_blue, nob[n].needcard_red, nob[n].needcard_brown, nob[n].needcard_green);
     }
     printf("\n");
-    printf("-------------°³¹ßÄ«µå(ÃÊ·Ï)-----------------                       ---------------------¼Õ¿¡ ÀÖ´Â Ä«µå-------------------\n");
-    printf("³²Àº ÃÊ·Ï |");
+    printf("-------------ê°œë°œì¹´ë“œ(ì´ˆë¡)-----------------                       ---------------------ì†ì— ìˆëŠ” ì¹´ë“œ-------------------\n");
+    printf("ë‚¨ì€ ì´ˆë¡ |");
     int card_number = 1;
     int keep_number = 1;
     for (int n = 0; n < 4; n++)
@@ -143,28 +143,28 @@ void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card
             printf("(%2d)-%5s|", keep_number++, keepcard[turn][n].card_type);
     }
     printf("\n");
-    printf(" %2dÀå     |", emtycard[2]);
+    printf(" %2dì¥     |", emtycard[2]);
     for (int n = 0; n < 4; n++)
     {
-        printf("  Á¡¼ö %d  |", green[n].score);
+        printf("  ì ìˆ˜ %d  |", green[n].score);
     }
     printf("                |");
     for (int n = 0; n < 20; n++)
     {
         if (keepcard[0][n].score != 10 && keepcard[0][n].score != -1)
-            printf("  Á¡¼ö %d  |", keepcard[turn][n].score);
+            printf("  ì ìˆ˜ %d  |", keepcard[turn][n].score);
     }
     printf("\n");
     printf("          |");
     for (int n = 0; n < 4; n++)
     {
-        printf("ÈòÆÄ»¡°¥ÃÊ|");
+        printf("í°íŒŒë¹¨ê°ˆì´ˆ|");
     }
     printf("                |");
     for (int n = 0; n < 20; n++)
     {
         if (keepcard[0][n].score != 10 && keepcard[0][n].score != -1)
-            printf("ÈòÆÄ»¡°¥ÃÊ|");
+            printf("í°íŒŒë¹¨ê°ˆì´ˆ|");
     }
     printf("\n");
     printf("          |");
@@ -182,23 +182,23 @@ void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card
     printf("\n");
 
 
-    printf("-------------°³¹ßÄ«µå(ÁÖÈ²)-----------------\n");
-    printf("³²Àº ÁÖÈ² |");
+    printf("-------------ê°œë°œì¹´ë“œ(ì£¼í™©)-----------------\n");
+    printf("ë‚¨ì€ ì£¼í™© |");
     for (int n = 0; n < 4; n++)
     {
         printf("(%2d)-%5s|", card_number++, orange[n].card_type);
     }
     printf("\n");
-    printf(" %2dÀå     |", emtycard[1]);
+    printf(" %2dì¥     |", emtycard[1]);
     for (int n = 0; n < 4; n++)
     {
-        printf("  Á¡¼ö %d  |", orange[n].score);
+        printf("  ì ìˆ˜ %d  |", orange[n].score);
     }
     printf("\n");
     printf("          |");
     for (int n = 0; n < 4; n++)
     {
-        printf("ÈòÆÄ»¡°¥ÃÊ|");
+        printf("í°íŒŒë¹¨ê°ˆì´ˆ|");
     }
     printf("\n");
     printf("          |");
@@ -208,23 +208,23 @@ void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card
     }
     printf("\n");
 
-    printf("-------------°³¹ßÄ«µå(ÆÄ¶û)-----------------\n");
-    printf("³²Àº ÆÄ¶û |");
+    printf("-------------ê°œë°œì¹´ë“œ(íŒŒë‘)-----------------\n");
+    printf("ë‚¨ì€ íŒŒë‘ |");
     for (int n = 0; n < 4; n++)
     {
         printf("(%2d)-%5s|", card_number++, blue[n].card_type);
     }
     printf("\n");
-    printf(" %2dÀå     |", emtycard[0]);
+    printf(" %2dì¥     |", emtycard[0]);
     for (int n = 0; n < 4; n++)
     {
-        printf("  Á¡¼ö %d  |", blue[n].score);
+        printf("  ì ìˆ˜ %d  |", blue[n].score);
     }
     printf("\n");
     printf("          |");
     for (int n = 0; n < 4; n++)
     {
-        printf("ÈòÆÄ»¡°¥ÃÊ|");
+        printf("í°íŒŒë¹¨ê°ˆì´ˆ|");
     }
     printf("\n");
     printf("          |");
@@ -234,10 +234,10 @@ void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card
     }
     printf("\n");
 
-    printf("-------------------³²Àº ÅäÅ«--------------------------\n");
-    printf("Èò(%d°³) ÆÄ(%d°³) »¡(%d°³) °¥(%d°³) ÃÊ(%d°³) È²(%d°³)\n", totaltok[0], totaltok[1], totaltok[2], totaltok[3], totaltok[4], totaltok[5]);
+    printf("-------------------ë‚¨ì€ í† í°--------------------------\n");
+    printf("í°(%dê°œ) íŒŒ(%dê°œ) ë¹¨(%dê°œ) ê°ˆ(%dê°œ) ì´ˆ(%dê°œ) í™©(%dê°œ)\n", totaltok[0], totaltok[1], totaltok[2], totaltok[3], totaltok[4], totaltok[5]);
 
-    printf("------------ÇÃ·¹ÀÌ¾î »óÈ²-----------------\n");
+    printf("------------í”Œë ˆì´ì–´ ìƒí™©-----------------\n");
     for (int n = 0; n < players; n++)
     {
         printf("  -player%d- |", n + 1);
@@ -245,14 +245,14 @@ void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card
     printf("\n");
     for (int n = 0; n < players; n++)
     {
-        printf("  Á¡¼ö: %2d  |", gameplayers[n][6]);
+        printf("  ì ìˆ˜: %2d  |", gameplayers[n][6]);
     }
     printf("\n");
     for (int n = 0; n < players; n++)
     {
-        printf("ÈòÆÄ»¡°¥ÃÊ°ñ|");
+        printf("í°íŒŒë¹¨ê°ˆì´ˆê³¨|");
     }
-    printf("=>º¸À¯ ÅäÅ«");
+    printf("=>ë³´ìœ  í† í°");
     printf("\n");
     for (int n = 0; n < players; n++)
     {
@@ -261,9 +261,9 @@ void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card
     printf("\n");
     for (int n = 0; n < players; n++)
     {
-        printf("ÈòÆÄ»¡°¥ÃÊ  |");
+        printf("í°íŒŒë¹¨ê°ˆì´ˆ  |");
     }
-    printf("=>ÇÒÀÎ ÅäÅ«");
+    printf("=>í• ì¸ í† í°");
     printf("\n");
     for (int n = 0; n < players; n++)
     {
@@ -273,7 +273,7 @@ void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card
 
 
 }
-int put_card(Card* blue, Card* orange, Card* green, Card* mixblue, Card* mixorange, Card* mixgreen, int choice)   // °³¹ßÄ«µå¸¦ »ç¸é ±×ÀÚ¸®¿¡ »õ·Î¿î °³¹ßÄ«µå¸¦ ±ò¾ÆÁÖ´Â ÇÔ¼ö
+int put_card(Card* blue, Card* orange, Card* green, Card* mixblue, Card* mixorange, Card* mixgreen, int choice)   // ê°œë°œì¹´ë“œë¥¼ ì‚¬ë©´ ê·¸ìë¦¬ì— ìƒˆë¡œìš´ ê°œë°œì¹´ë“œë¥¼ ê¹”ì•„ì£¼ëŠ” í•¨ìˆ˜
 {
     static blue_count = 4;
     static orange_count = 4;
@@ -295,7 +295,7 @@ int put_card(Card* blue, Card* orange, Card* green, Card* mixblue, Card* mixoran
 
 int main(void)
 {
-    //typedef struct card {                   // Ä«µå ±¸Á¶Ã¼
+    //typedef struct card {                   // ì¹´ë“œ êµ¬ì¡°ì²´
     //char card_type[10];
     //int score;                   //gameplayers[][6]
     //int needtok_white;           //gameplayers[][0]
@@ -303,7 +303,7 @@ int main(void)
     //int needtok_red;             //gameplayers[][2]
     //int needtok_brown;           //gameplayers[][3]
     //int needtok_green;           //gameplayers[][4]
-    //}Card; Á¡¼ö Èò»ö ÆÄ¶õ»ö »¡°£»ö °¥»ö ÃÊ·Ï»ö
+    //}Card; ì ìˆ˜ í°ìƒ‰ íŒŒë€ìƒ‰ ë¹¨ê°„ìƒ‰ ê°ˆìƒ‰ ì´ˆë¡ìƒ‰
     Card blue[40] = {
        {"brown",0,1,1,1,1,0},{"white",0,0,0,2,1,0},{"white",0,3,1,0,1,0},{"white",0,0,3,0,0,0},{"white",0,0,1,1,1,2},
        {"red",1,4,0,0,0,0},{"blue",0,1,0,2,0,2},{"green",0,1,1,1,2,0},{"red",0,1,0,1,3,0},{"blue",0,0,1,1,0,3},
@@ -312,7 +312,7 @@ int main(void)
        {"brown",0,1,2,1,0,1},{"green",0,1,3,0,0,1},{"green",0,2,1,0,0,0},{"blue",0,1,0,2,1,1},{"red",0,2,0,0,2,1},
        {"red",0,2,0,2,0,0},{"brown",0,0,0,1,0,2},{"brown",0,2,0,0,0,2},{"red",0,0,2,0,0,1},{"white",1,0,0,0,0,4},
        {"blue",0,1,0,0,2,0},{"blue",1,0,0,4,0,0},{"green",0,0,0,3,0,0},{"green",0,0,1,2,2,0},{"red",0,1,1,0,1,1},
-       {"white",0,0,2,0,1,2},{"white",0,0,1,1,1,1},{"red",0,3,0,0,0,0},{"green",0,0,2,2,0,0},{"green",1,0,0,0,4,0} };          // ÀÔ·Â ³Ö¾î¾ß µÉ Ä«µåµé
+       {"white",0,0,2,0,1,2},{"white",0,0,1,1,1,1},{"red",0,3,0,0,0,0},{"green",0,0,2,2,0,0},{"green",1,0,0,0,4,0} };          // ì…ë ¥ ë„£ì–´ì•¼ ë  ì¹´ë“œë“¤
     Card orange[30] = { 0 };
     Card green[20] = { 0 };
     Card_nob nob[10] = { 0 };
@@ -320,36 +320,36 @@ int main(void)
 
     srand(time(NULL));
     int players, choice;
-    int gameplayers[4][7] = { 0 };  //ÃÖ´ë °ÔÀÓ ÀÎ¿ø¼ö¿Í º¸¼®(6°³),Á¡¼ö¸¦ ³ªÅ¸³½ 2Â÷¿ø ¹è¿­
-    int card_discount[4][5] = { 0 };  // ÇÃ·¹ÀÌ¾îº° Ä«µå(°³¹ß,±ÍÁ·)·Î ÀÎÇÑ ÇÒÀÎ 
-    int totaltok[6] = { 0,0,0,0,0,5 };  // °ÔÀÓ¿¡ ±ò·ÁÁ® ÀÖ´Â ³²Àº ÅäÅ« °³¼ö
-    int tok = { 0 };                    // ÀÎ¿ø¼ö¿¡ µû¶ó °¢ ÅäÅ« °³¼ö¸¦ ³ªÅ¸³»´Â º¯¼ö
-    int emtycard[3] = { 36,26,16 };      // °ÔÀÓ¿¡ ±ò·ÁÁ® ÀÖ´Â ³²Àº Ä«µå °³¼ö
-    int user_have_nob[5] = { 0 }; /////Ãß°¡///////
+    int gameplayers[4][7] = { 0 };  //ìµœëŒ€ ê²Œì„ ì¸ì›ìˆ˜ì™€ ë³´ì„(6ê°œ),ì ìˆ˜ë¥¼ ë‚˜íƒ€ë‚¸ 2ì°¨ì› ë°°ì—´
+    int card_discount[4][5] = { 0 };  // í”Œë ˆì´ì–´ë³„ ì¹´ë“œ(ê°œë°œ,ê·€ì¡±)ë¡œ ì¸í•œ í• ì¸ 
+    int totaltok[6] = { 0,0,0,0,0,5 };  // ê²Œì„ì— ê¹”ë ¤ì ¸ ìˆëŠ” ë‚¨ì€ í† í° ê°œìˆ˜
+    int tok = { 0 };                    // ì¸ì›ìˆ˜ì— ë”°ë¼ ê° í† í° ê°œìˆ˜ë¥¼ ë‚˜íƒ€ë‚´ëŠ” ë³€ìˆ˜
+    int emtycard[3] = { 36,26,16 };      // ê²Œì„ì— ê¹”ë ¤ì ¸ ìˆëŠ” ë‚¨ì€ ì¹´ë“œ ê°œìˆ˜
+    int user_have_nob[5] = { 0 }; /////ì¶”ê°€///////
     int checking = 0;
 
 
-    Card mixblue[40] = { 0 };            // Ä«µå¸¦ ¼¯¾î¼­ ¹è¿­
+    Card mixblue[40] = { 0 };            // ì¹´ë“œë¥¼ ì„ì–´ì„œ ë°°ì—´
     Card mixorange[30] = { 0 };
     Card mixgreen[20] = { 0 };
     Card_nob mixnob[10] = { 0 };
 
-    Card keepcard[4][20] = { 0 };       // 4¹ø ÃÊÀÌ½º·ÎÀÎÇÑ º¸°üÇÑ Ä«µå
+    Card keepcard[4][20] = { 0 };       // 4ë²ˆ ì´ˆì´ìŠ¤ë¡œì¸í•œ ë³´ê´€í•œ ì¹´ë“œ
     for (int n = 0; n < 4; n++)
         for (int n1 = 0; n1 < 20; n1++)
             keepcard[n][n1].score = -1;
 
     printf("SPLENDER\n");
-    printf("¸î ¸í¿¡¼­ ÇÏ½Ç °Ç°¡¿ä?(2~4ÀÎ¿ë °ÔÀÓ)");
+    printf("ëª‡ ëª…ì—ì„œ í•˜ì‹¤ ê±´ê°€ìš”?(2~4ì¸ìš© ê²Œì„)");
     scanf_s("%d", &players);
 
-    if (players == 2) tok = 20;             // ÀÎ¿ø¼ö¿¡ µû¶ó ÅäÅ« °³¼ö¸¦ Á¤ÇÔ
+    if (players == 2) tok = 20;             // ì¸ì›ìˆ˜ì— ë”°ë¼ í† í° ê°œìˆ˜ë¥¼ ì •í•¨
     else if (players == 3) tok = 5;
     else tok = 7;
     for (int n = 0; n < 5; n++)
         totaltok[n] = tok;
 
-    //·£´ıÀ¸·Î Ä«µå¹è¿­À» ÇÔ 
+    //ëœë¤ìœ¼ë¡œ ì¹´ë“œë°°ì—´ì„ í•¨ 
     int check0[40] = { 0 };
     for (int n = 0; n < 40; n++)
     {
@@ -400,21 +400,21 @@ int main(void)
     }
 
 
-    // ·£´ıÀ¸·Î ¹è¿­ÇÑ Ä«µåÁß °ÔÀÓ¿¡ ÆîÄ¥ Ä«µå 4°³¸¦ ³ªÅ¸³»´Â ¹è¿­
+    // ëœë¤ìœ¼ë¡œ ë°°ì—´í•œ ì¹´ë“œì¤‘ ê²Œì„ì— í¼ì¹  ì¹´ë“œ 4ê°œë¥¼ ë‚˜íƒ€ë‚´ëŠ” ë°°ì—´
     Card setblue[4] = { mixblue[0],mixblue[1],mixblue[2],mixblue[3] };
     Card setorange[4] = { mixorange[0],mixorange[1],mixorange[2],mixorange[3] };
     Card setgreen[4] = { mixgreen[0],mixgreen[1],mixgreen[2],mixgreen[3] };
     Card_nob setnob[5] = { mixnob[0],mixnob[1],mixnob[2],mixnob[3],mixnob[4] };
     int check_break = 0;
 
-    while (1)              // °ÔÀÓÀÌ ³¡³¯¶§±îÁö ÅÏÀÌ ¹İº¹‰Î
+    while (1)              // ê²Œì„ì´ ëë‚ ë•Œê¹Œì§€ í„´ì´ ë°˜ë³µÂ‰
     {
         for (int n = 0; n < players; n++)
         {
-            print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard, card_discount, keepcard, n);   // ¸ÅÅÏ¸¶´Ù °ÔÀÓÆÇÀ» º¸¿©ÁÜ
+            print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard, card_discount, keepcard, n);   // ë§¤í„´ë§ˆë‹¤ ê²Œì„íŒì„ ë³´ì—¬ì¤Œ
             printf("----------------player%d turn----------------\n", n + 1);
-            printf("*¼±ÅÃ*\n1.¼­·Î ´Ù¸¥ »ö±òÀÇ º¸¼® ÅäÅ« 3°³ °¡Á®¿À±â\n2.°°Àº »ö±òÀÇ º¸¼® ÅäÅ« 2°³ °¡Á®¿À±â\n3.°³¹ß Ä«µå ±¸¸ÅÇÏ±â\n4.°³¹ß Ä«µå ¿¹¾àÇÏ±â\n");
-            scanf_s("%d", &choice);              // ÇÃ·¹ÀÌ¾î°¡ 1~4Áß¿¡¼­ ¼±ÅÃÀ»ÇÔ
+            printf("*ì„ íƒ*\n1.ì„œë¡œ ë‹¤ë¥¸ ìƒ‰ê¹”ì˜ ë³´ì„ í† í° 3ê°œ ê°€ì ¸ì˜¤ê¸°\n2.ê°™ì€ ìƒ‰ê¹”ì˜ ë³´ì„ í† í° 2ê°œ ê°€ì ¸ì˜¤ê¸°\n3.ê°œë°œ ì¹´ë“œ êµ¬ë§¤í•˜ê¸°\n4.ê°œë°œ ì¹´ë“œ ì˜ˆì•½í•˜ê¸°\n");
+            scanf_s("%d", &choice);              // í”Œë ˆì´ì–´ê°€ 1~4ì¤‘ì—ì„œ ì„ íƒì„í•¨
             switch (choice)
             {
             case 1:
@@ -425,30 +425,30 @@ int main(void)
                 break;
             case 3:
             {
-                int number = choice3(gameplayers, card_discount, setblue, setorange, setgreen, n, totaltok, keepcard);      // °³¹ß Ä«µå »ê ¹øÈ£¸¦ return ÇÑ´Ù
-                int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // ±× ¹øÈ£¿¡  »õ·Î¿î Ä«µå¸¦ ³Ö¾îÁÖ°í, ¹«½¼ Á¾·ùÀÇ Ä«µåÀÎÁö ¹øÈ£·Î returnÇÑ´Ù. 
-                emtycard[changecard]--;                                                     // ¹øÈ£¸¦ ¹Ş¾Æ ±× »ö±òÀÇ ³²Àº Ä«µå¸¦ ÇÏ³ª ÁÙÀÎ´Ù.
+                int number = choice3(gameplayers, card_discount, setblue, setorange, setgreen, n, totaltok, keepcard);      // ê°œë°œ ì¹´ë“œ ì‚° ë²ˆí˜¸ë¥¼ return í•œë‹¤
+                int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // ê·¸ ë²ˆí˜¸ì—  ìƒˆë¡œìš´ ì¹´ë“œë¥¼ ë„£ì–´ì£¼ê³ , ë¬´ìŠ¨ ì¢…ë¥˜ì˜ ì¹´ë“œì¸ì§€ ë²ˆí˜¸ë¡œ returní•œë‹¤. 
+                emtycard[changecard]--;                                                     // ë²ˆí˜¸ë¥¼ ë°›ì•„ ê·¸ ìƒ‰ê¹”ì˜ ë‚¨ì€ ì¹´ë“œë¥¼ í•˜ë‚˜ ì¤„ì¸ë‹¤.
                 break;
             }
 
             case 4:
             {
-                int number = choice4(gameplayers, n, keepcard, setblue, setorange, setgreen, totaltok);      // °³¹ß Ä«µå »ê ¹øÈ£¸¦ return ÇÑ´Ù
-                int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // ±× ¹øÈ£¿¡  »õ·Î¿î Ä«µå¸¦ ³Ö¾îÁÖ°í, ¹«½¼ Á¾·ùÀÇ Ä«µåÀÎÁö ¹øÈ£·Î returnÇÑ´Ù. 
-                emtycard[changecard]--;                                                     // ¹øÈ£¸¦ ¹Ş¾Æ ±× »ö±òÀÇ ³²Àº Ä«µå¸¦ ÇÏ³ª ÁÙÀÎ´Ù.
+                int number = choice4(gameplayers, n, keepcard, setblue, setorange, setgreen, totaltok);      // ê°œë°œ ì¹´ë“œ ì‚° ë²ˆí˜¸ë¥¼ return í•œë‹¤
+                int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // ê·¸ ë²ˆí˜¸ì—  ìƒˆë¡œìš´ ì¹´ë“œë¥¼ ë„£ì–´ì£¼ê³ , ë¬´ìŠ¨ ì¢…ë¥˜ì˜ ì¹´ë“œì¸ì§€ ë²ˆí˜¸ë¡œ returní•œë‹¤. 
+                emtycard[changecard]--;                                                     // ë²ˆí˜¸ë¥¼ ë°›ì•„ ê·¸ ìƒ‰ê¹”ì˜ ë‚¨ì€ ì¹´ë“œë¥¼ í•˜ë‚˜ ì¤„ì¸ë‹¤.
                 break;
             }
             }
-            rule(gameplayers, card_discount, user_have_nob, players, n, setnob); //////¹Ù²ñ///////
+            rule(gameplayers, card_discount, user_have_nob, players, n, setnob); //////ë°”ë€œ///////
             if (check_score(gameplayers, n) == 1)
             {
                 while (n + 1 < players)
                 {
                     int a = n + 1;
-                    print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard, card_discount, keepcard, a);   // ¸ÅÅÏ¸¶´Ù °ÔÀÓÆÇÀ» º¸¿©ÁÜ
+                    print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard, card_discount, keepcard, a);   // ë§¤í„´ë§ˆë‹¤ ê²Œì„íŒì„ ë³´ì—¬ì¤Œ
                     printf("----------------player%d turn----------------\n", n + 2);
-                    printf("*¼±ÅÃ*\n1.¼­·Î ´Ù¸¥ »ö±òÀÇ º¸¼® ÅäÅ« 3°³ °¡Á®¿À±â\n2.°°Àº »ö±òÀÇ º¸¼® ÅäÅ« 2°³ °¡Á®¿À±â\n3.°³¹ß Ä«µå ±¸¸ÅÇÏ±â\n4.°³¹ß Ä«µå ¿¹¾àÇÏ±â\n");
-                    scanf_s("%d", &choice);              // ÇÃ·¹ÀÌ¾î°¡ 1~4Áß¿¡¼­ ¼±ÅÃÀ»ÇÔ
+                    printf("*ì„ íƒ*\n1.ì„œë¡œ ë‹¤ë¥¸ ìƒ‰ê¹”ì˜ ë³´ì„ í† í° 3ê°œ ê°€ì ¸ì˜¤ê¸°\n2.ê°™ì€ ìƒ‰ê¹”ì˜ ë³´ì„ í† í° 2ê°œ ê°€ì ¸ì˜¤ê¸°\n3.ê°œë°œ ì¹´ë“œ êµ¬ë§¤í•˜ê¸°\n4.ê°œë°œ ì¹´ë“œ ì˜ˆì•½í•˜ê¸°\n");
+                    scanf_s("%d", &choice);              // í”Œë ˆì´ì–´ê°€ 1~4ì¤‘ì—ì„œ ì„ íƒì„í•¨
                     switch (choice)
                     {
                     case 1:
@@ -459,17 +459,17 @@ int main(void)
                         break;
                     case 3:
                     {
-                        int number = choice3(gameplayers, card_discount, setblue, setorange, setgreen, a, totaltok, keepcard);      // °³¹ß Ä«µå »ê ¹øÈ£¸¦ return ÇÑ´Ù
-                        int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // ±× ¹øÈ£¿¡  »õ·Î¿î Ä«µå¸¦ ³Ö¾îÁÖ°í, ¹«½¼ Á¾·ùÀÇ Ä«µåÀÎÁö ¹øÈ£·Î returnÇÑ´Ù. 
-                        emtycard[changecard]--;                                                     // ¹øÈ£¸¦ ¹Ş¾Æ ±× »ö±òÀÇ ³²Àº Ä«µå¸¦ ÇÏ³ª ÁÙÀÎ´Ù.
+                        int number = choice3(gameplayers, card_discount, setblue, setorange, setgreen, a, totaltok, keepcard);      // ê°œë°œ ì¹´ë“œ ì‚° ë²ˆí˜¸ë¥¼ return í•œë‹¤
+                        int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // ê·¸ ë²ˆí˜¸ì—  ìƒˆë¡œìš´ ì¹´ë“œë¥¼ ë„£ì–´ì£¼ê³ , ë¬´ìŠ¨ ì¢…ë¥˜ì˜ ì¹´ë“œì¸ì§€ ë²ˆí˜¸ë¡œ returní•œë‹¤. 
+                        emtycard[changecard]--;                                                     // ë²ˆí˜¸ë¥¼ ë°›ì•„ ê·¸ ìƒ‰ê¹”ì˜ ë‚¨ì€ ì¹´ë“œë¥¼ í•˜ë‚˜ ì¤„ì¸ë‹¤.
                         break;
                     }
 
                     case 4:
                     {
-                        int number = choice4(gameplayers, a, keepcard, setblue, setorange, setgreen, totaltok);      // °³¹ß Ä«µå »ê ¹øÈ£¸¦ return ÇÑ´Ù
-                        int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // ±× ¹øÈ£¿¡  »õ·Î¿î Ä«µå¸¦ ³Ö¾îÁÖ°í, ¹«½¼ Á¾·ùÀÇ Ä«µåÀÎÁö ¹øÈ£·Î returnÇÑ´Ù. 
-                        emtycard[changecard]--;                                                     // ¹øÈ£¸¦ ¹Ş¾Æ ±× »ö±òÀÇ ³²Àº Ä«µå¸¦ ÇÏ³ª ÁÙÀÎ´Ù.
+                        int number = choice4(gameplayers, a, keepcard, setblue, setorange, setgreen, totaltok);      // ê°œë°œ ì¹´ë“œ ì‚° ë²ˆí˜¸ë¥¼ return í•œë‹¤
+                        int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // ê·¸ ë²ˆí˜¸ì—  ìƒˆë¡œìš´ ì¹´ë“œë¥¼ ë„£ì–´ì£¼ê³ , ë¬´ìŠ¨ ì¢…ë¥˜ì˜ ì¹´ë“œì¸ì§€ ë²ˆí˜¸ë¡œ returní•œë‹¤. 
+                        emtycard[changecard]--;                                                     // ë²ˆí˜¸ë¥¼ ë°›ì•„ ê·¸ ìƒ‰ê¹”ì˜ ë‚¨ì€ ì¹´ë“œë¥¼ í•˜ë‚˜ ì¤„ì¸ë‹¤.
                         break;
                     }
                     }
@@ -501,7 +501,7 @@ int main(void)
         }
         else if (max == gameplayers[n + 1][6])
         {
-            int com_card[5] = { 0 }; // Á¡¼ö°¡ °°À» ¶§ °³¹ß Ä«µå °³¼ö ºñ±³
+            int com_card[5] = { 0 }; // ì ìˆ˜ê°€ ê°™ì„ ë•Œ ê°œë°œ ì¹´ë“œ ê°œìˆ˜ ë¹„êµ
             for (int i = 0; i < 5; i++)
             {
                 com_card[n] += card_discount[n][i];
