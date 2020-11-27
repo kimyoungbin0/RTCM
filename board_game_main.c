@@ -25,23 +25,21 @@ typedef struct card_nob {////귀족카드 구조체//////
 
 int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색깔의 보석 3개 가져오기
 {
-    char taketok1[6];
-    char taketok2[6];
-    char taketok3[6];
-    printf("흰색 토큰: %d\n", totaltok[0]);
-    printf("파란색 토큰: %d\n", totaltok[1]);
-    printf("빨간색 토큰: %d\n", totaltok[2]);
-    printf("갈색 토큰: %d\n", totaltok[3]);
-    printf("초록색 토큰: %d\n", totaltok[4]);
+    char taketok1[6];//고르는 토큰 변수1
+    char taketok2[6];//고르는 토큰 변수2
+    char taketok3[6];//고르는 토큰 변수3
+ 
     printf("가져올 서로 다른 토큰 3개를 입력해주십시오.\n");
     scanf_s("%s", taketok1, 6);
     scanf_s("%s", taketok2, 6);
     scanf_s("%s", taketok3, 6);
+    //중복하면 재귀함수를 활용하여 함수를 다시 불러옴
     if (strcmp(taketok1,taketok2)==0||strcmp(taketok1,taketok3)==0||strcmp(taketok2,taketok3)==0)
     {
         printf("\n똑같은 색깔의 보석은 가져갈 수 없습니다.\n\n");
         return choice1(gameplayers, totaltok, turn);
     }
+    //해당하는 토큰을 플레이어에게 전달
     if (strcmp(taketok1,"white")==0||strcmp(taketok2,"white")==0|| strcmp(taketok3, "white") == 0)
     {
         totaltok[0]--;
@@ -68,18 +66,14 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
         gameplayers[turn][4]++;
     }
     return 0;
-    // 보석 토큰은 총 10개까지 보유, 색깔이 4개이상 남아있어야 2개 가져올 수 있음
 }
 int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 보석 토큰 2개 가져오기
 {
-    char taketok[6] = { NULL };
-    printf("흰색 토큰: %d\n", totaltok[0]);
-    printf("파란색 토큰: %d\n", totaltok[1]);
-    printf("빨간색 토큰: %d\n", totaltok[2]);
-    printf("갈색 토큰: %d\n", totaltok[3]);
-    printf("초록색 토큰: %d\n", totaltok[4]);
+    char taketok[6] = { NULL };//토큰변수
+    
     printf("4개 이상의 토큰만 2개를 가져올 수 있습니다.");
     scanf_s("%s", taketok,6);
+    //3개 이하의 토큰을 고르면 재귀함수를 활용하여 함수를 다시불러옴
     if (totaltok[0] < 4 && strcmp(taketok,"white")==0)
     {
         printf("4개 이상의 토큰을 고르십시오.\n\n");
@@ -105,6 +99,7 @@ int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 �
         printf("4개 이상의 토큰을 고르십시오.\n\n");
         return choice2(gameplayers, totaltok, turn);
     }
+    //해당하는 토큰2개를 플레이어에게 전달
     if (strcmp(taketok, "white") == 0)
     {
         totaltok[0] -= 2;
