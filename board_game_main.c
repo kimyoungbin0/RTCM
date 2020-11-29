@@ -26,9 +26,9 @@ typedef struct card_nob {////귀족카드 구조체//////
 int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색깔의 보석 3개 가져오기
 {
     int go = 1;
-    char taketok1[6];//고르는 토큰 변수1
-    char taketok2[6];//고르는 토큰 변수2
-    char taketok3[6];//고르는 토큰 변수3
+    char taketok1[11];//고르는 토큰 변수1
+    char taketok2[11];//고르는 토큰 변수2
+    char taketok3[11];//고르는 토큰 변수3
     
     printf("서로 다른 색깔의 보석 토큰 3개 가져오기를 고르셧습니다.\n");
     int sum = 0;
@@ -39,7 +39,6 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
     if (sum > 10)
     {
         printf("보유한 보석토큰이 10개 이상입니다. \n선택창으로 돌아갑니다.\n");
-        getchar();
         return -1;
     }
     else if (sum == 9)//보석 토큰은 10개를 초과할 수 없기 때문에 9개일때 1개만 고를 수 있게 한다.
@@ -54,9 +53,9 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
         }
         printf("(EX: [white], [blue], [red], [brown], [green])\n");
 
-        scanf_s("%s", taketok1, 6);
+        scanf_s("%[^\n]", taketok1, 11);
 
-        if (strcmp(taketok1, "white") == -1 && strcmp(taketok1, "blue") && strcmp(taketok1, "red") && strcmp(taketok1, "brown") && strcmp(taketok1, "green"))
+        if (!strcmp(taketok1, "white") == 0 && !strcmp(taketok1, "blue") == 0 && !strcmp(taketok1, "red") == 0 && !strcmp(taketok1, "brown") == 0 && !strcmp(taketok1, "green") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
             printf("잘못 입력하셧습니다.\n");
             return choice1(gameplayers, totaltok, turn);
@@ -72,25 +71,24 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
             return -1;
         }
         printf("(EX: [white], [blue], [red], [brown], [green])\n");
-        scanf_s("%s", taketok1, 6);
-        if (strcmp(taketok1, "re") == 0)
+        scanf_s("%[^\n]", taketok1, 11);
         {
             return -1;
         }
-        if (strcmp(taketok1, "white") == -1 && strcmp(taketok1, "blue") && strcmp(taketok1, "red") && strcmp(taketok1, "brown") && strcmp(taketok1, "green"))
+        if (!strcmp(taketok1, "white") == 0 && !strcmp(taketok1, "blue") == 0 && !strcmp(taketok1, "red") == 0 && !strcmp(taketok1, "brown") == 0 && !strcmp(taketok1, "green") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
             printf("잘못 입력하셧습니다.\n");
             return choice1(gameplayers, totaltok, turn);
         }
-        scanf_s("%s", taketok2, 6);
+        scanf_s("%[^\n]", taketok2, 11);
         if (strcmp(taketok2, "re") == 0)
         {
             return -1;
         }
-        if (strcmp(taketok2, "white") == -1 && strcmp(taketok2, "blue") && strcmp(taketok2, "red") && strcmp(taketok2, "brown") && strcmp(taketok2, "green"))
-        {
+        if (!strcmp(taketok3, "white") == 0 && !strcmp(taketok3, "blue") == 0 && !strcmp(taketok3, "red") == 0 && !strcmp(taketok3, "brown") == 0 && !strcmp(taketok3, "green") == 0)//잘못입력하면 다시 고르기
+        {//잘못입력하면 다시 고르기
             printf("잘못 입력하셧습니다.\n");
-            return choice1(gameplayers, totaltok, turn);
+            return choice2(gameplayers, totaltok, turn);
         }
 
     }
@@ -104,31 +102,31 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
         }
         printf("가져올 서로 다른 토큰 3개를 입력해주십시오.\n");
         printf("(EX: [white], [blue], [red], [brown], [green])\n");
-        scanf_s("%s", taketok1, 6);
-        if (strcmp(taketok1, "white") == -1 && strcmp(taketok1, "blue") && strcmp(taketok1, "red") && strcmp(taketok1, "brown") && strcmp(taketok1, "green"))
+        scanf_s("%[^\n]", taketok1, 11);
+        if (!strcmp(taketok1, "white") == 0 && !strcmp(taketok1, "blue") == 0 && !strcmp(taketok1, "red") == 0 && !strcmp(taketok1, "brown") == 0 && !strcmp(taketok1, "green") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
             printf("잘못 입력하셧습니다.\n");
             return choice1(gameplayers, totaltok, turn);
         }
-        scanf_s("%s", taketok2, 6);
+        scanf_s("%[^\n]", taketok2, 11);
         if (strcmp(taketok2, "re") == 0)
         {
             return -1;
         }
-        if (strcmp(taketok2, "white") == -1 && strcmp(taketok2, "blue") && strcmp(taketok2, "red") && strcmp(taketok2, "brown") && strcmp(taketok2, "green"))
-        {
+        if (!strcmp(taketok2, "white") == 0 && !strcmp(taketok2, "blue") == 0 && !strcmp(taketok2, "red") == 0 && !strcmp(taketok2, "brown") == 0 && !strcmp(taketok2, "green") == 0)//잘못입력하면 다시 고르기
+        {//잘못입력하면 다시 고르기
             printf("잘못 입력하셧습니다.\n");
             return choice1(gameplayers, totaltok, turn);
         }
-        scanf_s("%s", taketok3, 6);
+        scanf_s("%[^\n]", taketok3, 11);
         if (strcmp(taketok3, "re") == 0)
         {
             return -1;
         }
-        if (strcmp(taketok3, "white") == -1 && strcmp(taketok3, "blue") && strcmp(taketok3, "red") && strcmp(taketok3, "brown") && strcmp(taketok3, "green"))
-        {
+        if (!strcmp(taketok3, "white") == 0 && !strcmp(taketok3, "blue") == 0 && !strcmp(taketok3, "red") == 0 && !strcmp(taketok3, "brown") == 0 && !strcmp(taketok3, "green") == 0)//잘못입력하면 다시 고르기
+        {//잘못입력하면 다시 고르기
             printf("잘못 입력하셧습니다.\n");
-            return choice1(gameplayers, totaltok, turn);
+            return choice2(gameplayers, totaltok, turn);
         }
     }
 
@@ -193,7 +191,7 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
 }
 int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 보석 토큰 2개 가져오기
 {
-    char taketok[6] = { NULL };//토큰변수
+    char taketok[11] = { NULL };
 
     printf("\n같은 색깔의 보석 토큰 2개 가져오기를 고르셧습니다.\n\n");
     int go = 1;
@@ -205,7 +203,6 @@ int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 �
     if (sum >= 10)
     {
         printf("보유한 보석토큰이 10를 초과할 수 없습니다. \n선택창으로 돌아갑니다.\n");
-        getchar();
         return -1;
     }
     else if (sum == 9)//보석 토큰은 10개를 초과할 수 없기 때문에 1개만 고를 수 있게 한다.
@@ -214,14 +211,15 @@ int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 �
         //0을 입력하면 선택창으로 돌아갈 수 있게 한다.
         printf("선택창으로 돌아가기 원하시면 0을 입력해 주십시오.\n계속 진행하실거면 아무숫자나 입력해 주십시오.\n\n");
         scanf_s("%d", &go);
+        getchar();
         if (go == 0)
         {
             return -1;
         }
         printf("(EX: [white], [blue], [red], [brown], [green])\n");
-        scanf_s("%s", taketok, 6);
-        if (strcmp(taketok, "white") == -1 && strcmp(taketok, "blue") && strcmp(taketok, "red") && strcmp(taketok, "brown") && strcmp(taketok, "green"))//잘못입력하면 다시 고르기
-        {
+        scanf_s("%[^\n]", taketok,11);
+        if (!strcmp(taketok, "white") == 0 && !strcmp(taketok, "blue") == 0 && !strcmp(taketok, "red") == 0 && !strcmp(taketok, "brown") == 0 && !strcmp(taketok, "green") == 0)//잘못입력하면 다시 고르기
+        {//잘못입력하면 다시 고르기
             printf("잘못 입력하셧습니다.\n");
             return choice2(gameplayers, totaltok, turn);
         }
@@ -284,17 +282,21 @@ int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 �
     {
         printf("선택창으로 돌아가기 원하시면 0을 입력해 주십시오.\n계속 진행하실거면 아무숫자나 입력해 주십시오.");
         scanf_s("%d", &go);
+        getchar();
+        
         if (go == 0)
         {
+            go = 1;
             return -1;
         }
         printf("4개 이상의 토큰만 2개를 가져올 수 있습니다.\n");
         printf("토큰2개를 가져올 색상을 입력해주십시오.\n");
         printf("(EX: [white], [blue], [red], [brown], [green])\n");
-        scanf_s("%s", taketok, 6);
-        if (strcmp(taketok, "white") == -1 && strcmp(taketok, "blue") && strcmp(taketok, "red") && strcmp(taketok, "brown") && strcmp(taketok, "green"))//잘못입력하면 다시 고르기
-        {
-            printf("\n\n잘못 입력하셧습니다.\n\n");
+        scanf_s("%[^\n]", taketok,11);
+        getchar();
+        if (!strcmp(taketok, "white") == 0 && !strcmp(taketok, "blue") == 0 && !strcmp(taketok, "red") == 0 && !strcmp(taketok, "brown") == 0 && !strcmp(taketok, "green") == 0)//잘못입력하면 다시 고르기
+        {//잘못입력하면 다시 고르기
+            printf("잘못 입력하셧습니다.\n");
             return choice2(gameplayers, totaltok, turn);
         }
         //3개 이하의 토큰을 고르면 재귀함수를 활용하여 함수를 다시불러옴
@@ -1049,6 +1051,11 @@ int main(void)
             case 3:
             {
                 int number = choice3(gameplayers, card_discount, setblue, setorange, setgreen, n, totaltok, keepcard);      // 개발 카드 산 번호를 return 한다
+                if (number == -1)
+                {
+                    n--;
+                    continue;
+                }
                 int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
                 emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
                 break;
@@ -1057,6 +1064,11 @@ int main(void)
             case 4:
             {
                 int number = choice4(gameplayers, n, keepcard, setblue, setorange, setgreen, totaltok);      // 개발 카드 산 번호를 return 한다
+                if (number == -1)
+                {
+                    n--;
+                    continue;
+                }
                 int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
                 emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
                 break;
