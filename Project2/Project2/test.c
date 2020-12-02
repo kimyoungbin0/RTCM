@@ -701,7 +701,57 @@ int check(int gameplayers[][7], int* totaltok, int turn, int card_discount[][5],
     else
         return -1;
 }
-
+void mix_card(Card* blue, Card* orange, Card* green, Card_nob* nob, Card* mixblue, Card* mixorange, Card* mixgreen, Card_nob* mixnob)
+{
+    int check0[40] = { 0 };
+    for (int n = 0; n < 40; n++)
+    {
+        while (1) {
+            int k = rand() % 40;
+            if (check0[k] == 0) {
+                mixblue[n] = blue[k];
+                check0[k] = 1;
+                break;
+            }
+        }
+    }
+    int check1[30] = { 0 };
+    for (int n = 0; n < 30; n++)
+    {
+        while (1) {
+            int k = rand() % 30;
+            if (check1[k] == 0) {
+                mixorange[n] = orange[k];
+                check1[k] = 1;
+                break;
+            }
+        }
+    }
+    int check2[20] = { 0 };
+    for (int n = 0; n < 20; n++)
+    {
+        while (1) {
+            int k = rand() % 20;
+            if (check2[k] == 0) {
+                mixgreen[n] = green[k];
+                check2[k] = 1;
+                break;
+            }
+        }
+    }
+    int check3[10] = { 0 };
+    for (int n = 0; n < 10; n++)
+    {
+        while (1) {
+            int k = rand() % 10;
+            if (check3[k] == 0) {
+                mixnob[n] = nob[k];
+                check3[k] = 1;
+                break;
+            }
+        }
+    }
+}
 int rule(int gameplayers[][7], int card_discount[][5], int user_have_nob[], int players, int turn, Card_nob* setnob) ////바뀜
 {
     // 귀족 카드 조건이되면 귀족 카드를 얻음 ( 만약 여러개면 선택을 할 수 있게 해줌 and 귀족방문는 한번만 가능)
@@ -765,6 +815,43 @@ int check_score(int gameplayers[][7], int turn)
     {
         return 0;
     }
+}
+void find_winner(int gameplayers[][7], int players, int card_discount[][5])
+{
+    for (int n = 0; n < players; n++)
+    {
+        printf(" player%d : %d \n", n + 1, gameplayers[n][6]);
+    }
+    int max = gameplayers[0][6];
+    int max_player = 0;
+    for (int n = 0; n < 3; n++)
+    {
+        if (max < gameplayers[n + 1][6])
+        {
+            max = gameplayers[n + 1][6];
+            max_player = n + 1;
+        }
+        else if (max == gameplayers[n + 1][6])
+        {
+            int com_card[5] = { 0 }; // 점수가 같을 때 개발 카드 개수 비교
+            for (int i = 0; i < 5; i++)
+            {
+                com_card[n] += card_discount[n][i];
+                com_card[n + 1] += card_discount[n + 1][i];
+            }
+            if (com_card[n] > com_card[n + 1])
+            {
+                max = gameplayers[n][6];
+                max_player = n;
+            }
+            else if (com_card[n] < com_card[n + 1])
+            {
+                max = gameplayers[n + 1][6];
+                max_player = n + 1;
+            }
+        }
+    }
+    printf(" winner is %d \n", max_player + 1);
 }
 
 void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card* green, Card_nob* nob, int* totaltok, int* emtycard, int card_discount[][5], Card keepcard[][20], int turn)
@@ -1038,55 +1125,7 @@ int main(void)
         totaltok[n] = tok;
 
     //랜덤으로 카드배열을 함 
-    int check0[40] = { 0 };
-    for (int n = 0; n < 40; n++)
-    {
-        while (1) {
-            int k = rand() % 40;
-            if (check0[k] == 0) {
-                mixblue[n] = blue[k];
-                check0[k] = 1;
-                break;
-            }
-        }
-    }
-    int check1[30] = { 0 };
-    for (int n = 0; n < 30; n++)
-    {
-        while (1) {
-            int k = rand() % 30;
-            if (check1[k] == 0) {
-                mixorange[n] = orange[k];
-                check1[k] = 1;
-                break;
-            }
-        }
-    }
-    int check2[20] = { 0 };
-    for (int n = 0; n < 20; n++)
-    {
-        while (1) {
-            int k = rand() % 20;
-            if (check2[k] == 0) {
-                mixgreen[n] = green[k];
-                check2[k] = 1;
-                break;
-            }
-        }
-    }
-    int check3[10] = { 0 };
-    for (int n = 0; n < 10; n++)
-    {
-        while (1) {
-            int k = rand() % 10;
-            if (check3[k] == 0) {
-                mixnob[n] = nob[k];
-                check3[k] = 1;
-                break;
-            }
-        }
-    }
-
+    mix_card(blue, orange, green, nob, mixblue, mixorange, mixgreen, mixnob);
 
     // 랜덤으로 배열한 카드중 게임에 펼칠 카드 4개를 나타내는 배열
     Card setblue[4] = { mixblue[0],mixblue[1],mixblue[2],mixblue[3] };
@@ -1228,38 +1267,7 @@ int main(void)
         }
     }
 
-    for (int n = 0; n < players; n++)
-    {
-        printf(" player%d : %d \n", n + 1, gameplayers[n][6]);
-    }
-    int max = gameplayers[0][6];
-    int max_player = 0;
-    for (int n = 0; n < 3; n++)
-    {
-        if (max < gameplayers[n + 1][6])
-        {
-            max = gameplayers[n + 1][6];
-            max_player = n + 1;
-        }
-        else if (max == gameplayers[n + 1][6])
-        {
-            int com_card[5] = { 0 }; // 점수가 같을 때 개발 카드 개수 비교
-            for (int i = 0; i < 5; i++)
-            {
-                com_card[n] += card_discount[n][i];
-                com_card[n + 1] += card_discount[n + 1][i];
-            }
-            if (com_card[n] > com_card[n + 1])
-            {
-                max = gameplayers[n][6];
-                max_player = n;
-            }
-            else if (com_card[n] < com_card[n + 1])
-            {
-                max = gameplayers[n + 1][6];
-                max_player = n + 1;
-            }
-        }
-    }
-    printf(" winner is %d \n", max_player + 1);
+    find_winner(gameplayers, players, card_discount);
+
+    return 0;
 }
