@@ -1,4 +1,4 @@
 ﻿  test.c
-C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(203,18): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(29): warning C4716: 'choice3': must return a value
-  Project2.vcxproj -> C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Debug\Project2.exe
+C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(757,21): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+LINK : fatal error LNK1168: cannot open C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Debug\Project2.exe for writing
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(876,5): error MSB6006: "link.exe" exited with code 1168.
