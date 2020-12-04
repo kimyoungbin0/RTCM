@@ -81,7 +81,7 @@ int main(void)
     int totaltok[6] = { 0,0,0,0,0,5 };  // 게임에 깔려져 있는 남은 토큰 개수
     int tok = { 0 };                    // 인원수에 따라 각 토큰 개수를 나타내는 변수
     int emtycard[3] = { 36,26,16 };      // 게임에 깔려져 있는 남은 카드 개수
-    int user_have_nob[5] = { 0 }; /////추가///////
+    int user_have_nob[5] = { 0 };  // 플레이어의 긔족카드 
     int checking = 0;
 
     Card mixblue[40] = { 0 };            // 카드를 섞어서 배열
