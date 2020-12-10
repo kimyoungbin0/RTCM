@@ -13,7 +13,7 @@ typedef struct card {                   // 카드 구조체
     int needtok_green;           //gameplayers[][4]
 }Card;
 
-typedef struct card_nob {////귀족카드 구조체//////
+typedef struct card_nob {           ////귀족카드 구조체//////
     int score;
     int needcard_white;
     int needcard_blue;
@@ -21,6 +21,249 @@ typedef struct card_nob {////귀족카드 구조체//////
     int needcard_brown;
     int needcard_green;
 }Card_nob;
+
+
+int choice1(int gameplayers[][7], int* totaltok, int turn);
+int choice2(int gameplayers[][7], int* totaltok, int turn);
+int choice3(int gameplayers[][7], int card_discount[][5], Card* blue, Card* orange, Card* green, int turn, int* totaltok, Card keepcard[][20]);
+int choice4(int gameplayers[][7], int turn, Card keepcard[][20], Card* blue, Card* orange, Card* green, int* totaltok);
+int check(int gameplayers[][7], int* totaltok, int turn, int card_discount[][5], int choice, Card* blue, Card* orange, Card* green, Card keepcard[][20]);
+void mix_card(Card* blue, Card* orange, Card* green, Card_nob* nob, Card* mixblue, Card* mixorange, Card* mixgreen, Card_nob* mixnob);
+int rule(int gameplayers[][7], int card_discount[][5], int user_have_nob[], int players, int turn, Card_nob* setnob);
+int check_score(int gameplayers[][7], int turn);
+void find_winner(int gameplayers[][7], int players, int card_discount[][5]);
+void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card* green, Card_nob* nob, int* totaltok, int* emtycard, int card_discount[][5], Card keepcard[][20], int turn);
+int put_card(Card* blue, Card* orange, Card* green, Card* mixblue, Card* mixorange, Card* mixgreen, int choice);
+
+int main(void)
+{
+    //typedef struct card {                   // 카드 구조체
+    //char card_type[10];
+    //int score;                   //gameplayers[][6]
+    //int needtok_white;           //gameplayers[][0]
+    //int needtok_blue;            //gameplayers[][1]
+    //int needtok_red;             //gameplayers[][2]
+    //int needtok_brown;           //gameplayers[][3]
+    //int needtok_green;           //gameplayers[][4]
+    //}Card; 점수 흰색 파란색 빨간색 갈색 초록색
+    Card blue[40] = {
+       {"brown",0,1,1,1,1,0},{"white",0,0,0,2,1,0},{"white",0,3,1,0,1,0},{"white",0,0,3,0,0,0},{"white",0,0,1,1,1,2},
+       {"red",1,4,0,0,0,0},{"blue",0,1,0,2,0,2},{"green",0,1,1,1,2,0},{"red",0,1,0,1,3,0},{"blue",0,0,1,1,0,3},
+       {"blue",0,1,0,1,1,1},{"blue",0,0,0,0,2,2},{"brown",1,0,4,0,0,0},{"brown",0,2,2,1,0,0},{"brown",0,0,1,0,0,1},
+       {"blue",0,0,0,0,3,0},{"red",0,2,1,0,1,1},{"green",0,1,1,1,1,0},{"white",0,0,2,0,2,0},{"brown",0,0,0,3,1,1},
+       {"brown",0,1,2,1,0,1},{"green",0,1,3,0,0,1},{"green",0,2,1,0,0,0},{"blue",0,1,0,2,1,1},{"red",0,2,0,0,2,1},
+       {"red",0,2,0,2,0,0},{"brown",0,0,0,1,0,2},{"brown",0,2,0,0,0,2},{"red",0,0,2,0,0,1},{"white",1,0,0,0,0,4},
+       {"blue",0,1,0,0,2,0},{"blue",1,0,0,4,0,0},{"green",0,0,0,3,0,0},{"green",0,0,1,2,2,0},{"red",0,1,1,0,1,1},
+       {"white",0,0,2,0,1,2},{"white",0,0,1,1,1,1},{"red",0,3,0,0,0,0},{"green",0,0,2,2,0,0},{"green",1,0,0,0,4,0} };          // 개발카드
+    Card orange[30] =
+    {
+        {"red",2,1,0,1,1,3},{"brown",2,1,0,2,1,1},{"white",3,2,1,2,1,0},{"red",2,0,1,0,3,1},{"green",1,2,1,0,0,1},
+        {"blue",4,3,0,2,1,0},{"brown",3,0,0,4,0,1},{"green",4,0,0,1,4,1},{"red",2,1,0,0,2,2},{"white",4,0,4,0,1,2},
+        {"red",2,1,0,1,1,3},{"green",2,0,1,1,0,3},{"white",4,0,0,5,0,0},{"blue",3,1,0,0,4,0},{"brown",2,0,3,0,0,1},
+        {"blue",3,3,3,0,0,1},{"red",4,0,0,4,2,0},{"brown",3,0,0,0,0,5},{"blue",4,0,4,4,0,0},{"green",2,0,3,0,2,1},
+        {"white",2,3,0,0,0,2},{"red",2,0,3,0,3,1},{"blue",2,1,2,1,1,3},{"white",5,0,2,0,5,1},{"blue",3,0,1,1,3,2},
+        {"green",4,3,0,0,4,0},{"brown",2,0,3,4,0,0},{"white",3,0,4,0,2,1},{"brown",3,2,5,1,0,0},{"green",4,0,0,5,0,2}
+    };
+    Card green[20] = {
+       {"white",3,0,3,5,3,3},{"green",4,3,6,0,0,3},{"white",4,3,0,3,6,0},{"blue",5,7,3,0,0,0},{"white",5,3,0,0,7,0},
+       {"green",4,0,7,0,0,0},{"red",4,0,0,0,0,7},{"blue",4,7,0,0,0,0},{"blue",3,3,0,3,5,3},{"brown",4,0,0,3,6,3},
+       {"brown",3,3,3,3,0,5},{"blue",4,6,3,0,3,0},{"green",3,5,3,3,3,0},{"red",3,3,5,0,3,3},{"brown",5,0,0,7,3,0},
+       {"white",4,0,0,0,7,0},{"red",4,0,3,3,0,6},{"green",5,0,7,0,0,3},{"brown",4,0,7,0,0,0},{"red",5,0,0,3,0,7}
+    };
+    Card_nob nob[10] = {                               // 귀족카드
+      {3,0,0,4,0,4},{3,4,4,0,0,0},{3,0,0,4,4,0},{3,4,0,0,4,0},{3,0,4,0,0,4},
+      {3,3,0,3,3,0},{3,0,0,3,3,3},{3,3,3,0,0,3},{3,0,3,3,0,3},{3,3,3,0,3,0}
+    };
+
+
+    srand(time(NULL));
+    int players, choice;
+    int gameplayers[4][7] = { 0 };  //최대 게임 인원수와 보석(6개),점수를 나타낸 2차원 배열
+    int card_discount[4][5] = { 0 };  // 플레이어별 카드(개발,귀족)로 인한 할인 
+    int totaltok[6] = { 0,0,0,0,0,5 };  // 게임에 깔려져 있는 남은 토큰 개수
+    int tok = { 0 };                    // 인원수에 따라 각 토큰 개수를 나타내는 변수
+    int emtycard[3] = { 36,26,16 };      // 게임에 깔려져 있는 남은 카드 개수
+    int user_have_nob[5] = { 0 };            // 플레이어가 귀족카드를 소유하고있는지 확인하는 배열
+    int checking = 0;               // check함수를 통과했나 확인하는 변수
+   
+
+    Card mixblue[40] = { 0 };            // 카드를 섞어서 배열
+    Card mixorange[30] = { 0 };
+    Card mixgreen[20] = { 0 };
+    Card_nob mixnob[10] = { 0 };
+
+    Card keepcard[4][20] = { 0 };       // 4번 초이스로인한 보관한 카드
+    for (int n = 0; n < 4; n++)
+        for (int n1 = 0; n1 < 20; n1++)
+            keepcard[n][n1].score = -1;
+
+    printf("SPLENDER\n");
+    while (1) {                       // 플레이어수가 2,3,4가 아니면 다시 입력받음
+        printf("몇 명에서 하실 건가요?(2~4인용 게임)");
+        scanf_s("%d", &players);
+        if (1 < players && players < 5)
+            break;
+        else
+            printf("잘못입력하셨습니다.\n");
+    }
+    if (players == 2) tok = 4;             // 인원수에 따라 토큰 개수를 정함
+    else if (players == 3) tok = 5;
+    else tok = 7;
+    for (int n = 0; n < 5; n++)
+        totaltok[n] = tok;
+
+    //랜덤으로 카드배열을 함 
+    mix_card(blue, orange, green, nob, mixblue, mixorange, mixgreen, mixnob);
+
+    // 랜덤으로 배열한 카드중 게임에 펼칠 카드 4개를 나타내는 배열
+    Card setblue[4] = { mixblue[0],mixblue[1],mixblue[2],mixblue[3] };
+    Card setorange[4] = { mixorange[0],mixorange[1],mixorange[2],mixorange[3] };
+    Card setgreen[4] = { mixgreen[0],mixgreen[1],mixgreen[2],mixgreen[3] };
+    Card_nob setnob[5] = { mixnob[0],mixnob[1],mixnob[2],mixnob[3],mixnob[4] };
+    int check_break = 0;
+
+    while (1)              // 게임이 끝날때까지 턴이 반복 
+    {
+        for (int n = 0; n < players; n++)
+        {
+            print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard, card_discount, keepcard, n);   // 매턴마다 게임판을 보여줌
+            printf("----------------player%d turn---------------------------\n", n + 1);
+            while (1) {
+                printf("*선택*\n1.서로 다른 색깔의 보석 토큰 3개 가져오기\n2.같은 색깔의 보석 토큰 2개 가져오기\n3.개발 카드 구매하기\n4.개발 카드 예약하기\n");
+                scanf_s("%d", &choice);              // 플레이어가 1~4중에서 선택을함
+                checking = check(gameplayers, totaltok, n, card_discount, choice, setblue, setorange, setgreen, keepcard);  // 그 선택을 했을 때 할 수 있는 것이 있는지 확인하는 함수
+                if (checking == 0)           // 그 선택을 했을 때 할수 있는게 없으면 다시 입력하라고 해준다.
+                    break;
+                printf("다시 입력하시오\n");
+            }
+            switch (choice)
+            {
+            case 1:  // choice1 선택
+                if (choice1(gameplayers, totaltok, n) == -1)   // 다시 선택창으로 돌아가고 싶다고 하면 턴을 -1 한다
+                {
+                    n--;
+                    continue;
+
+                }
+                break;
+            case 2:
+                if (choice2(gameplayers, totaltok, n) == -1) // 다시 선택창으로 돌아가고 싶다고 하면 턴을 -1 한다
+                {
+                    n--;
+                    continue;
+                }
+                break;
+            case 3:
+            {
+                int number = choice3(gameplayers, card_discount, setblue, setorange, setgreen, n, totaltok, keepcard);      // 개발 카드 산 번호를 return 한다
+                if (number == -1) // 다시 선택창으로 돌아가고 싶다고 하면 턴을 -1 한다
+                {
+                    n--;
+                    continue;
+                }
+                if (number == 0)  // 예약한 카드를 삿을 때는 새로운 카드가 깔리지 않도록 한다.
+                    continue;
+                int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
+                if (changecard == -1) break;       // 더 이상 깔 수 있는 개발카드가 없을때 남은카드를 줄이지 않기 위해 break로 나간다. 
+                emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
+                break;
+            }
+
+            case 4:
+            {
+                int number = choice4(gameplayers, n, keepcard, setblue, setorange, setgreen, totaltok);      // 개발 카드 산 번호를 return 한다
+                if (number == -1) // 다시 선택창으로 돌아가고 싶다고 하면 턴을 -1 한다
+                {
+                    n--;
+                    continue;
+                }
+                int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
+                if (changecard == -1) break; // 더 이상 깔 수 있는 개발카드가 없을때 남은카드를 줄이지 않기 위해 break로 나간다. 
+                emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
+                break;
+            }
+            }
+            rule(gameplayers, card_discount, user_have_nob, players, n, setnob); // 귀족카드 조건이 성립되는지 확인하고 성립되면 귀족카드를 주는 함수
+
+            if (check_score(gameplayers, n) == 1)    //  15점이 넘은 사람이 있으면 마지막 바퀴로 가는 반복문으로 이동한다
+            {
+                n++;
+                while (n < players)
+                {
+                    print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard, card_discount, keepcard, n);   // 매턴마다 게임판을 보여줌
+                    printf("----------------player%d turn----------------\n", n + 1);
+                    while (1) {
+                        printf("*선택*\n1.서로 다른 색깔의 보석 토큰 3개 가져오기\n2.같은 색깔의 보석 토큰 2개 가져오기\n3.개발 카드 구매하기\n4.개발 카드 예약하기\n");
+                        scanf_s("%d", &choice);              // 플레이어가 1~4중에서 선택을함
+                        checking = check(gameplayers, totaltok, n, card_discount, choice, setblue, setorange, setgreen, keepcard);// 그 선택을 했을 때 할 수 있는 것이 있는지 확인하는 함수
+                        if (checking == 0)           // 그 선택을 했을 때 할수 있는게 없으면 다시 입력하라고 해준다.
+                            break;
+                        printf("다시 입력하시오\n");
+                    }
+                    switch (choice)
+                    {
+                    case 1:
+                        if (choice1(gameplayers, totaltok, n) == -1)    // 다시 선택창으로 돌아가고 싶다고 하면 턴을 -1 한다
+                        {
+                            n--;
+                            continue;
+
+                        }
+                        break;
+                    case 2:
+                        if (choice2(gameplayers, totaltok, n) == -1) // 다시 선택창으로 돌아가고 싶다고 하면 턴을 -1 한다
+                        {
+                            n--;
+                            continue;
+                        }
+                        break;
+                    case 3:
+                    {
+                        int number = choice3(gameplayers, card_discount, setblue, setorange, setgreen, n, totaltok, keepcard);      // 개발 카드 산 번호를 return 한다
+                        if (number == -1) // 다시 선택창으로 돌아가고 싶다고 하면 턴을 -1 한다
+                        {
+                            n--;
+                            continue;
+                        }
+                        if (number == 0) // 예약한 카드를 삿을 때는 새로운 카드가 깔리지 않도록 한다.
+                            continue;
+                        int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
+                        if (changecard == -1) break; // 더 이상 깔 수 있는 개발카드가 없을때 남은카드를 줄이지 않기 위해 break로 나간다. 
+                        emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
+                        break;
+                    }
+
+                    case 4:
+                    {
+                        int number = choice4(gameplayers, n, keepcard, setblue, setorange, setgreen, totaltok);      // 개발 카드 산 번호를 return 한다
+                        if (number == -1) // 다시 선택창으로 돌아가고 싶다고 하면 턴을 -1 한다
+                        {
+                            n--;
+                            continue;
+                        }
+                        int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
+                        if (changecard == -1) break; // 더 이상 깔 수 있는 개발카드가 없을때 남은카드를 줄이지 않기 위해 break로 나간다. 
+                        emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
+                        break;
+                    }
+                    }
+                    rule(gameplayers, card_discount, user_have_nob, players, n, setnob);// 귀족카드 조건이 성립되는지 확인하고 성립되면 귀족카드를 주는 함수
+                    n++;
+                }
+                check_break = 1; 
+                break;
+            }
+        }
+        if (check_break == 1)
+        {
+            break;
+        }
+    }
+
+    find_winner(gameplayers, players, card_discount);  // 마지막 턴까지 끝나면 1등을 출력하고 게임을 종료시킨다.
+
+    return 0;
+}
 
 
 int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색깔의 보석 3개 가져오기
@@ -31,16 +274,12 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
 
     printf("서로 다른 색깔의 보석 토큰 3개 가져오기를 고르셨습니다.\n");
     int sum = 0;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++)                // 플레이어가 소유하고 있는 토큰의 개수
     {
         sum = sum + gameplayers[turn][i];
     }
-    if (sum > 10)
-    {
-        printf("보유한 보석토큰이 10개 이상입니다. \n선택창으로 돌아갑니다.\n");
-        return -1;
-    }
-    else if (sum == 9)//보석 토큰은 10개를 초과할 수 없기 때문에 9개일때 1개만 고를 수 있게 한다.
+  
+    if (sum == 9)//보석 토큰은 10개를 초과할 수 없기 때문에 9개일때 1개만 고를 수 있게 한다.
     {
         printf("보석 토큰은 10개를 초과하여 소유할 수 없습니다.\n현재 총 보석토큰은 9개 임의로 1개 고를 수 있습니다.\n ");
         //선택창으로 돌아가게 한다.
@@ -48,9 +287,9 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
         printf("(EX: [white], [blue], [red], [brown], [green])\n");
         getchar();
         scanf_s("%[^\n]", taketok1, 50);
-        if (strcmp(taketok1, "0") == 0)
+        if (strcmp(taketok1, "0") == 0)   // 다시 선택창으로 돌아간다고 하였을 때
             return -1;
-        if (!strcmp(taketok1, "white") == 0 && !strcmp(taketok1, "blue") == 0 && !strcmp(taketok1, "red") == 0 && !strcmp(taketok1, "brown") == 0 && !strcmp(taketok1, "green") == 0)//잘못입력하면 다시 고르기
+        if (!strcmp(taketok1, "blue") == 0 && !strcmp(taketok1, "red") == 0 && !strcmp(taketok1, "green") == 0 && !strcmp(taketok1, "brown") == 0 && !strcmp(taketok1, "white") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
             printf("잘못 입력하셨습니다.\n\n");
             return choice1(gameplayers, totaltok, turn);
@@ -63,23 +302,29 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
         printf("(EX: [white], [blue], [red], [brown], [green])\n");
         getchar();
         scanf_s("%[^\n]", taketok1, 50);
-        if (strcmp(taketok1, "0") == 0)
+        if (strcmp(taketok1, "0") == 0) // 다시 선택창으로 돌아간다고 하였을 때
             return -1;
-        if (strcmp(taketok1, "white") == 0 && !strcmp(taketok1, "blue") == 0 && !strcmp(taketok1, "red") == 0 && !strcmp(taketok1, "green") == 0 && !strcmp(taketok1, "brown") == 0)//잘못입력하면 다시 고르기
+        if (!strcmp(taketok1, "blue") == 0 && !strcmp(taketok1, "red") == 0 && !strcmp(taketok1, "green") == 0 && !strcmp(taketok1, "brown") == 0 && !strcmp(taketok1, "white") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
             printf("잘못 입력하셨습니다.\n\n");
             return choice1(gameplayers, totaltok, turn);
         }
         getchar();
         scanf_s("%[^\n]", taketok2, 50);
-        if (strcmp(taketok2, "0") == 0)
+        if (strcmp(taketok2, "0") == 0) // 다시 선택창으로 돌아간다고 하였을 때
         {
             return -1;
         }
         if (!strcmp(taketok2, "white") == 0 && !strcmp(taketok2, "blue") == 0 && !strcmp(taketok2, "red") == 0 && !strcmp(taketok2, "brown") == 0 && !strcmp(taketok2, "green") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
             printf("잘못 입력하셨습니다.\n\n");
-            return choice2(gameplayers, totaltok, turn);
+            return choice1(gameplayers, totaltok, turn);
+        }
+        //중복하면 재귀함수를 활용하여 함수를 다시 불러옴
+        if (strcmp(taketok1, taketok2) == 0)
+        {
+            printf("\n똑같은 색깔의 보석은 가져갈 수 없습니다.\n\n");
+            return choice1(gameplayers, totaltok, turn);
         }
 
     }
@@ -90,7 +335,7 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
         printf("(EX: [white], [blue], [red], [brown], [green])\n");
         getchar();
         scanf_s("%[^\n]", taketok1, 50);
-        if (strcmp(taketok1, "0") == 0)
+        if (strcmp(taketok1, "0") == 0) // 다시 선택창으로 돌아간다고 하였을 때
             return -1;
         if (!strcmp(taketok1, "blue") == 0 && !strcmp(taketok1, "red") == 0 && !strcmp(taketok1, "green") == 0 && !strcmp(taketok1, "brown") == 0 && !strcmp(taketok1, "white") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
@@ -99,7 +344,7 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
         }
         getchar();
         scanf_s("%[^\n]", taketok2, 50);
-        if (strcmp(taketok2, "0") == 0)
+        if (strcmp(taketok2, "0") == 0) // 다시 선택창으로 돌아간다고 하였을 때
         {
             return -1;
         }
@@ -110,7 +355,7 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
         }
         getchar();
         scanf_s("%[^\n]", taketok3, 50);
-        if (strcmp(taketok3, "0") == 0)
+        if (strcmp(taketok3, "0") == 0) // 다시 선택창으로 돌아간다고 하였을 때
         {
             return -1;
         }
@@ -119,13 +364,12 @@ int choice1(int gameplayers[][7], int* totaltok, int turn)  // 서로 다른 색
             printf("잘못 입력하셨습니다.\n\n");
             return choice1(gameplayers, totaltok, turn);
         }
-    }
-
-    //중복하면 재귀함수를 활용하여 함수를 다시 불러옴
-    if (strcmp(taketok1, taketok2) == 0 || strcmp(taketok1, taketok3) == 0 || strcmp(taketok2, taketok3) == 0)
-    {
-        printf("\n똑같은 색깔의 보석은 가져갈 수 없습니다.\n\n");
-        return choice1(gameplayers, totaltok, turn);
+        //중복하면 재귀함수를 활용하여 함수를 다시 불러옴
+        if (strcmp(taketok1, taketok2) == 0 || strcmp(taketok1, taketok3) == 0 || strcmp(taketok2, taketok3) == 0)
+        {
+            printf("\n똑같은 색깔의 보석은 가져갈 수 없습니다.\n\n");
+            return choice1(gameplayers, totaltok, turn);
+        }
     }
     //해당하는 토큰을 플레이어에게 전달
     if (strcmp(taketok1, "white") == 0 || strcmp(taketok2, "white") == 0 || strcmp(taketok3, "white") == 0)
@@ -186,16 +430,12 @@ int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 �
 
     printf("\n같은 색깔의 보석 토큰 2개 가져오기를 고르셨습니다.\n");
     int sum = 0;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++)  // 플레이어가 소유하고 있는 모든 토큰의 개수
     {
         sum = sum + gameplayers[turn][i];
     }
-    if (sum >= 10)
-    {
-        printf("보유한 보석토큰이 10를 초과할 수 없습니다. \n선택창으로 돌아갑니다.\n");
-        return -1;
-    }
-    else if (sum == 9)//보석 토큰은 10개를 초과할 수 없기 때문에 1개만 고를 수 있게 한다.
+    
+    if (sum == 9)//보석 토큰은 10개를 초과할 수 없기 때문에 1개만 고를 수 있게 한다.
     {
         printf("보유한 보석토큰이 10개를 초과할 수 없습니다.\n현재 보석 토큰은 9개 입니다. 1개 고르실 수 있습니다.\n");
         //0을 입력하면 선택창으로 돌아갈 수 있게 한다.
@@ -203,12 +443,12 @@ int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 �
         printf("(EX: [white], [blue], [red], [brown], [green])\n");
         getchar();
         scanf_s("%[^\n]", taketok, 50);
-        if (strcmp(taketok, "0") == 0)
+        if (strcmp(taketok, "0") == 0) // 다시 선택창으로 돌아간다고 하였을 때
             return -1;
-        if (!strcmp(taketok, "white") == 0 && !strcmp(taketok, "blue") == 0 && !strcmp(taketok, "red") == 0 && !strcmp(taketok, "brown") == 0 && !strcmp(taketok, "green") == 0)//잘못입력하면 다시 고르기
+        if (!strcmp(taketok, "blue") == 0 && !strcmp(taketok, "red") == 0 && !strcmp(taketok, "green") == 0 && !strcmp(taketok, "brown") == 0 && !strcmp(taketok, "white") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
-            printf("잘못 입력하셨습니다.\n");
-            return choice2(gameplayers, totaltok, turn);
+            printf("잘못 입력하셨습니다.\n\n");
+            return choice1(gameplayers, totaltok, turn);
         }
         //해당하는 토큰1개를 플레이어에게 전달
         //1개만 가져오기 때문에 4개 이하의 토큰도 가져올 수 있게 한다.
@@ -273,12 +513,12 @@ int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 �
         printf("(EX: [white], [blue], [red], [brown], [green])\n");
         getchar();
         scanf_s("%[^\n]", taketok, 50);
-        if (strcmp(taketok, "0") == 0)
+        if (strcmp(taketok, "0") == 0) // 다시 선택창으로 돌아간다고 하였을 때
             return -1;
-        if (!strcmp(taketok, "white") == 0 && !strcmp(taketok, "blue") == 0 && !strcmp(taketok, "red") == 0 && !strcmp(taketok, "brown") == 0 && !strcmp(taketok, "green") == 0)//잘못입력하면 다시 고르기
+        if (!strcmp(taketok, "blue") == 0 && !strcmp(taketok, "red") == 0 && !strcmp(taketok, "green") == 0 && !strcmp(taketok, "brown") == 0 && !strcmp(taketok, "white") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
-            printf("잘못 입력하셨습니다.\n");
-            return choice2(gameplayers, totaltok, turn);
+            printf("잘못 입력하셨습니다.\n\n");
+            return choice1(gameplayers, totaltok, turn);
         }
         //3개 이하의 토큰을 고르면 재귀함수를 활용하여 함수를 다시불러옴
         if (totaltok[0] < 4 && strcmp(taketok, "white") == 0)
@@ -597,7 +837,11 @@ int choice4(int gameplayers[][7], int turn, Card keepcard[][20], Card* blue, Car
     // 황금토큰도 함께 가져온다
     int choice = 0;
     static int n[4] = { 0 };
-
+    int sum = 0;
+    for (int i = 0; i < 5; i++)
+    {
+        sum = sum + gameplayers[turn][i];
+    }
     printf("예약할 개발카드의 숫자를 입력하시오(0 : back) ");
     scanf_s("%d", &choice);
     if (choice == 0)                                                      // 다시 선택창으로 돌아가는 if문이다
@@ -613,7 +857,7 @@ int choice4(int gameplayers[][7], int turn, Card keepcard[][20], Card* blue, Car
     else {
         keepcard[turn][n[turn]++] = blue[choice - 9];
     }
-    if (totaltok[5] > 0) {                                         //골드 토큰이 있을때 골드 토큰을 추가로 받음
+    if (totaltok[5] > 0 && sum < 10) {                                         //골드 토큰이 있을때 골드 토큰을 추가로 받음
         gameplayers[turn][5]++;
         totaltok[5]--;
     }
@@ -693,7 +937,7 @@ int check(int gameplayers[][7], int* totaltok, int turn, int card_discount[][5],
         for (int n = 0; n < 20; n++)
             if (keepcard[turn][n].score != -1)
                 checking++;
-        if (checking > 3)
+        if (checking > 2)
             return -1;
         else
             return 0;
@@ -701,10 +945,10 @@ int check(int gameplayers[][7], int* totaltok, int turn, int card_discount[][5],
     else
         return -1;
 }
-void mix_card(Card* blue, Card* orange, Card* green, Card_nob* nob, Card* mixblue, Card* mixorange, Card* mixgreen, Card_nob* mixnob)
+void mix_card(Card* blue, Card* orange, Card* green, Card_nob* nob, Card* mixblue, Card* mixorange, Card* mixgreen, Card_nob* mixnob)  // 개발카드와 귀족카드를 섞는 함수
 {
     int check0[40] = { 0 };
-    for (int n = 0; n < 40; n++)
+    for (int n = 0; n < 40; n++)          // 난수와 반복문을 통해서 카드를 섞는다
     {
         while (1) {
             int k = rand() % 40;
@@ -752,18 +996,18 @@ void mix_card(Card* blue, Card* orange, Card* green, Card_nob* nob, Card* mixblu
         }
     }
 }
-int rule(int gameplayers[][7], int card_discount[][5], int user_have_nob[], int players, int turn, Card_nob* setnob) ////바뀜
+int rule(int gameplayers[][7], int card_discount[][5], int user_have_nob[], int players, int turn, Card_nob* setnob)  // 귀족카드 조건이 되면 귀족방문을 하게 해주는 함수
 {
     // 귀족 카드 조건이되면 귀족 카드를 얻음 ( 만약 여러개면 선택을 할 수 있게 해줌 and 귀족방문는 한번만 가능)
     int select_card[5] = { 0 }; // 고를 수 있는 귀족 카드가 여러 개일 경우 고를 수 있도록 번호 제공
     int choose = 0;
     int check = 0;
-    if (user_have_nob[turn] == 1)
+    if (user_have_nob[turn] == 1)   // 플레이어가 귀족카드를 소유중이면 함수를 나간다
     {
         return 0;
     }
     else {
-        for (int n = 0; n < players + 1; n++)
+        for (int n = 0; n < players + 1; n++)    // 조건에 맞는 귀족카드가 있는지 확인한다
         {
             int condition = 0;
             if (card_discount[turn][0] >= setnob[n].needcard_white)
@@ -782,10 +1026,10 @@ int rule(int gameplayers[][7], int card_discount[][5], int user_have_nob[], int 
                 check++;
             }
         }
-        if (check > 0)
+        if (check > 0)            // 조건에 맞는 귀족카드가 있을 경우
         {
             printf("You can select nobility-card. [");
-            for (int n = 0; n < players + 1; n++)
+            for (int n = 0; n < players + 1; n++)   // 어떤 귀족카드를 가져갈지 물어본다 (한번에 2개의 조건의 귀족카드가 성립할때를 대비함)
             {
                 if (select_card[n] != 0)
                 {
@@ -793,17 +1037,23 @@ int rule(int gameplayers[][7], int card_discount[][5], int user_have_nob[], int 
                 }
             }
             printf("] \n Which card do you want to choose? ");
-            scanf_s("%d", &choose);
-            gameplayers[turn][6] += setnob[choose - 1].score;
-            setnob[choose - 1].score = -1;
-            setnob[choose - 1].needcard_blue = 999;
-            user_have_nob[turn]++;
+            while (1) {                      // 번호를 잘못입력하면 다시 입력할 수 있기함
+                scanf_s("%d", &choose);
+                if (0 <= (choose - 1) && (choose - 1) <= 4)
+                    if (select_card[choose - 1] != 0)
+                        break;
+                printf("다시 입력하시오:");
+            }
+            gameplayers[turn][6] += setnob[choose - 1].score;    // 플레이어의 점수를 귀족카드 점수만큼 올린다
+            setnob[choose - 1].score = -1;                        // 카드가 더이상 map함수에 출력되지않도록 스코어를 -1로 만들어준다
+            setnob[choose - 1].needcard_blue = 999;                // 더이상 다른 플레이어가  이 카드를 못가져가도록 필요한 토큰을 엄청 높게 올린다/
+            user_have_nob[turn]++;                             // 한번 귀족방문을 한 플레이어가 다시 방문할 수 없도록 한다.
         }
         return 0;
     }
 }
 
-int check_score(int gameplayers[][7], int turn)
+int check_score(int gameplayers[][7], int turn)             // 15점이상 모은 플레이어가 있는지 확인하는 함수
 {
     // 매턴마다 플레이어가 15점이상 모았는지 확인후 있으면 그 바퀴를 마지막으로 게임 종료(마지막 바퀴인걸 출력해줌, 만약 같은 점수가 있을시 카드 개수가 더 작은 사람이 승리)
     if (gameplayers[turn][6] >= 15)
@@ -816,53 +1066,53 @@ int check_score(int gameplayers[][7], int turn)
         return 0;
     }
 }
-void find_winner(int gameplayers[][7], int players, int card_discount[][5])
+void find_winner(int gameplayers[][7], int players, int card_discount[][5])        // 게임이 종료되기전에 1등을 찾아내는 함수
 {
-    for (int n = 0; n < players; n++)
+    for (int n = 0; n < players; n++)               // 플레이어들의 점수를 출력한다
     {
         printf(" player%d : %d \n", n + 1, gameplayers[n][6]);
     }
     int max = gameplayers[0][6];
-    int max_player = 0;
-    for (int n = 0; n < 3; n++)
+    int win_player = 0;
+    int low = 0;
+    for (int n = 0; n <players-1; n++) // 비교를 통해 1등을 가려내는 반복문 
     {
         if (max < gameplayers[n + 1][6])
         {
             max = gameplayers[n + 1][6];
-            max_player = n + 1;
+            win_player = n + 1;
         }
-        else if (max == gameplayers[n + 1][6])
+        else if (max == gameplayers[n + 1][6])  // 두 플레이어의 점수가 같을 때
         {
-            int com_card[5] = { 0 }; // 점수가 같을 때 개발 카드 개수 비교
-            for (int i = 0; i < 5; i++)
+            int com_card[4] = { 0 }; // 점수가 같을 때 개발 카드 개수 비교
+            for (int i = 0; i < 5; i++)   // 비교하는 플레이어들의 총 개발카드 개수 
             {
                 com_card[n] += card_discount[n][i];
                 com_card[n + 1] += card_discount[n + 1][i];
             }
-            if (com_card[n] > com_card[n + 1])
+            if (com_card[n] < com_card[n + 1]) // 뒷 플레이어가 더 카드가 많을 경우 
             {
                 max = gameplayers[n][6];
-                max_player = n;
             }
-            else if (com_card[n] < com_card[n + 1])
+            else    // 뒷 플레이어 카드가 적거나 두 플레이어 카드 수가 같을 경우
             {
                 max = gameplayers[n + 1][6];
-                max_player = n + 1;
+                win_player = n + 1;
             }
         }
     }
-    printf(" winner is %d \n", max_player + 1);
+    printf(" winner is %d \n", win_player + 1);
 }
 
-void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card* green, Card_nob* nob, int* totaltok, int* emtycard, int card_discount[][5], Card keepcard[][20], int turn)
+void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card* green, Card_nob* nob, int* totaltok, int* emtycard, int card_discount[][5], Card keepcard[][20], int turn)  
 {
     // 매 턴마다 카드 세팅 상황을 시각화해줌   
-    printf("-------------귀족카드-----------------\n");   // 플레이어 수에 따른 귀족카드 번호, 점수, 필요 개발카드 종류를 출력한다
+    printf("----------------------귀족카드-------------------------\n");   // 플레이어 수에 따른 귀족카드 번호, 점수, 필요 개발카드 종류를 출력한다
     for (int n = 0; n < players + 1; n++)
     {
         if (nob[n].score == -1)
             continue;
-        printf("     *    |");
+        printf("     %d    |", n + 1);
     }
     printf("\n");
     for (int n = 0; n < players + 1; n++)
@@ -897,7 +1147,7 @@ void print_map(int players, int gameplayers[][7], Card* blue, Card* orange, Card
     printf("         player%d|", turn + 1);
     for (int n = 0; n < 20; n++)
     {
-        if (keepcard[turn][n].score != -1)
+        if (keepcard[turn][n].score != -1)  // 실제로 손에 있는 카드만 나오게 함
             printf("(%2d)-%5s|", keep_number++, keepcard[turn][n].card_type);
     }
     printf("\n");
@@ -1037,6 +1287,23 @@ int put_card(Card* blue, Card* orange, Card* green, Card* mixblue, Card* mixoran
     static orange_count = 4;
     static green_count = 4;
 
+    if (blue_count == 40)
+    {
+        blue[choice - 9].needtok_white = 99;
+        return -1;
+    }
+    if (orange_count == 30)
+    {
+        orange[choice - 5].needtok_white = 99;
+        return -1;
+    }
+    if (green_count == 20)
+    {
+        green[choice - 1].needtok_white = 99;
+        return -1;
+    }
+
+
     if (0 < choice && choice < 5) {
         green[choice - 1] = mixgreen[green_count++];
         return 2;
@@ -1050,224 +1317,4 @@ int put_card(Card* blue, Card* orange, Card* green, Card* mixblue, Card* mixoran
         return 0;
     }
 
-}
-
-int main(void)
-{
-    //typedef struct card {                   // 카드 구조체
-    //char card_type[10];
-    //int score;                   //gameplayers[][6]
-    //int needtok_white;           //gameplayers[][0]
-    //int needtok_blue;            //gameplayers[][1]
-    //int needtok_red;             //gameplayers[][2]
-    //int needtok_brown;           //gameplayers[][3]
-    //int needtok_green;           //gameplayers[][4]
-    //}Card; 점수 흰색 파란색 빨간색 갈색 초록색
-    Card blue[40] = {
-       {"brown",0,1,1,1,1,0},{"white",0,0,0,2,1,0},{"white",0,3,1,0,1,0},{"white",0,0,3,0,0,0},{"white",0,0,1,1,1,2},
-       {"red",1,4,0,0,0,0},{"blue",0,1,0,2,0,2},{"green",0,1,1,1,2,0},{"red",0,1,0,1,3,0},{"blue",0,0,1,1,0,3},
-       {"blue",0,1,0,1,1,1},{"blue",0,0,0,0,2,2},{"brown",1,0,4,0,0,0},{"brown",0,2,2,1,0,0},{"brown",0,0,1,0,0,1},
-       {"blue",0,0,0,0,3,0},{"red",0,2,1,0,1,1},{"green",0,1,1,1,1,0},{"white",0,0,2,0,2,0},{"brown",0,0,0,3,1,1},
-       {"brown",0,1,2,1,0,1},{"green",0,1,3,0,0,1},{"green",0,2,1,0,0,0},{"blue",0,1,0,2,1,1},{"red",0,2,0,0,2,1},
-       {"red",0,2,0,2,0,0},{"brown",0,0,0,1,0,2},{"brown",0,2,0,0,0,2},{"red",0,0,2,0,0,1},{"white",1,0,0,0,0,4},
-       {"blue",0,1,0,0,2,0},{"blue",1,0,0,4,0,0},{"green",0,0,0,3,0,0},{"green",0,0,1,2,2,0},{"red",0,1,1,0,1,1},
-       {"white",0,0,2,0,1,2},{"white",0,0,1,1,1,1},{"red",0,3,0,0,0,0},{"green",0,0,2,2,0,0},{"green",1,0,0,0,4,0} };          // 입력 넣어야 될 카드들
-    Card orange[30] =
-    {
-        {"red",2,1,0,1,1,3},{"brown",2,1,0,2,1,1},{"white",3,2,1,2,1,0},{"red",2,0,1,0,3,1},{"green",1,2,1,0,0,1},
-        {"blue",4,3,0,2,1,0},{"brown",3,0,0,4,0,1},{"green",4,0,0,1,4,1},{"red",2,1,0,0,2,2},{"white",4,0,4,0,1,2},
-        {"red",2,1,0,1,1,3},{"green",2,0,1,1,0,3},{"white",4,0,0,5,0,0},{"blue",3,1,0,0,4,0},{"brown",2,0,3,0,0,1},
-        {"blue",3,3,3,0,0,1},{"red",4,0,0,4,2,0},{"brown",3,0,0,0,0,5},{"blue",4,0,4,4,0,0},{"green",2,0,3,0,2,1},
-        {"white",2,3,0,0,0,2},{"red",2,0,3,0,3,1},{"blue",2,1,2,1,1,3},{"white",5,0,2,0,5,1},{"blue",3,0,1,1,3,2},
-        {"green",4,3,0,0,4,0},{"brown",2,0,3,4,0,0},{"white",3,0,4,0,2,1},{"brown",3,2,5,1,0,0},{"green",4,0,0,5,0,2}
-    };
-    Card green[20] = {
-       {"white",3,0,3,5,3,3},{"green",4,3,6,0,0,3},{"white",4,3,0,3,6,0},{"blue",5,7,3,0,0,0},{"white",5,3,0,0,7,0},
-       {"green",4,0,7,0,0,0},{"red",4,0,0,0,0,7},{"blue",4,7,0,0,0,0},{"blue",3,3,0,3,5,3},{"brown",4,0,0,3,6,3},
-       {"brown",3,3,3,3,0,5},{"blue",4,6,3,0,3,0},{"green",3,5,3,3,3,0},{"red",3,3,5,0,3,3},{"brown",5,0,0,7,3,0},
-       {"white",4,0,0,0,7,0},{"red",4,0,3,3,0,6},{"green",5,0,7,0,0,3},{"brown",4,0,7,0,0,0},{"red",5,0,0,3,0,7}
-    };
-    Card_nob nob[10] = {
-      {3,0,0,4,0,4},{3,4,4,0,0,0},{3,0,0,4,4,0},{3,4,0,0,4,0},{3,0,4,0,0,4},
-      {3,3,0,3,3,0},{3,0,0,3,3,3},{3,3,3,0,0,3},{3,0,3,3,0,3},{3,3,3,0,3,0}
-    };
-
-
-    srand(time(NULL));
-    int players, choice;
-    int gameplayers[4][7] = { 0 };  //최대 게임 인원수와 보석(6개),점수를 나타낸 2차원 배열
-    int card_discount[4][5] = { 0 };  // 플레이어별 카드(개발,귀족)로 인한 할인 
-    int totaltok[6] = { 0,0,0,0,0,5 };  // 게임에 깔려져 있는 남은 토큰 개수
-    int tok = { 0 };                    // 인원수에 따라 각 토큰 개수를 나타내는 변수
-    int emtycard[3] = { 36,26,16 };      // 게임에 깔려져 있는 남은 카드 개수
-    int user_have_nob[5] = { 0 }; /////추가///////
-    int checking = 0;
-
-
-    Card mixblue[40] = { 0 };            // 카드를 섞어서 배열
-    Card mixorange[30] = { 0 };
-    Card mixgreen[20] = { 0 };
-    Card_nob mixnob[10] = { 0 };
-
-    Card keepcard[4][20] = { 0 };       // 4번 초이스로인한 보관한 카드
-    for (int n = 0; n < 4; n++)
-        for (int n1 = 0; n1 < 20; n1++)
-            keepcard[n][n1].score = -1;
-
-    printf("SPLENDER\n");
-    printf("몇 명에서 하실 건가요?(2~4인용 게임)");
-    scanf_s("%d", &players);
-
-    if (players == 2) tok = 4;             // 인원수에 따라 토큰 개수를 정함
-    else if (players == 3) tok = 5;
-    else tok = 7;
-    for (int n = 0; n < 5; n++)
-        totaltok[n] = tok;
-
-    //랜덤으로 카드배열을 함 
-    mix_card(blue, orange, green, nob, mixblue, mixorange, mixgreen, mixnob);
-
-    // 랜덤으로 배열한 카드중 게임에 펼칠 카드 4개를 나타내는 배열
-    Card setblue[4] = { mixblue[0],mixblue[1],mixblue[2],mixblue[3] };
-    Card setorange[4] = { mixorange[0],mixorange[1],mixorange[2],mixorange[3] };
-    Card setgreen[4] = { mixgreen[0],mixgreen[1],mixgreen[2],mixgreen[3] };
-    Card_nob setnob[5] = { mixnob[0],mixnob[1],mixnob[2],mixnob[3],mixnob[4] };
-    int check_break = 0;
-
-    while (1)              // 게임이 끝날때까지 턴이 반복 
-    {
-        for (int n = 0; n < players; n++)
-        {
-            print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard, card_discount, keepcard, n);   // 매턴마다 게임판을 보여줌
-            printf("----------------player%d turn---------------------------\n", n + 1);
-            while (1) {
-                printf("*선택*\n1.서로 다른 색깔의 보석 토큰 3개 가져오기\n2.같은 색깔의 보석 토큰 2개 가져오기\n3.개발 카드 구매하기\n4.개발 카드 예약하기\n");
-                scanf_s("%d", &choice);              // 플레이어가 1~4중에서 선택을함
-                checking = check(gameplayers, totaltok, n, card_discount, choice, setblue, setorange, setgreen, keepcard);
-                if (checking == 0)           // 그 선택을 했을 때 할수 있는게 없으면 다시 입력하라고 해준다.
-                    break;
-                printf("다시 입력하시오\n");
-            }
-            switch (choice)
-            {
-            case 1:
-                if (choice1(gameplayers, totaltok, n) == -1)
-                {
-                    n--;
-                    continue;
-
-                }
-                break;
-            case 2:
-                if (choice2(gameplayers, totaltok, n) == -1)
-                {
-                    n--;
-                    continue;
-                }
-                break;
-            case 3:
-            {
-                int number = choice3(gameplayers, card_discount, setblue, setorange, setgreen, n, totaltok, keepcard);      // 개발 카드 산 번호를 return 한다
-                if (number == -1)
-                {
-                    n--;
-                    continue;
-                }
-                if (number == 0)
-                    continue;
-                int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
-                emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
-                break;
-            }
-
-            case 4:
-            {
-                int number = choice4(gameplayers, n, keepcard, setblue, setorange, setgreen, totaltok);      // 개발 카드 산 번호를 return 한다
-                if (number == -1)
-                {
-                    n--;
-                    continue;
-                }
-                int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
-                emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
-                break;
-            }
-            }
-            rule(gameplayers, card_discount, user_have_nob, players, n, setnob); //////바뀜///////
-            if (check_score(gameplayers, n) == 1)
-            {
-                while (n + 1 < players)
-                {
-                    int a = n + 1;
-                    print_map(players, gameplayers, setblue, setorange, setgreen, setnob, totaltok, emtycard, card_discount, keepcard, a);   // 매턴마다 게임판을 보여줌
-                    printf("----------------player%d turn----------------\n", n + 2);
-                    while (1) {
-                        printf("*선택*\n1.서로 다른 색깔의 보석 토큰 3개 가져오기\n2.같은 색깔의 보석 토큰 2개 가져오기\n3.개발 카드 구매하기\n4.개발 카드 예약하기\n");
-                        scanf_s("%d", &choice);              // 플레이어가 1~4중에서 선택을함
-                        checking = check(gameplayers, totaltok, n, card_discount, choice, setblue, setorange, setgreen, keepcard);
-                        if (checking == 0)           // 그 선택을 했을 때 할수 있는게 없으면 다시 입력하라고 해준다.
-                            break;
-                        printf("다시 입력하시오\n");
-                    }
-                    switch (choice)
-                    {
-                    case 1:
-                        if (choice1(gameplayers, totaltok, n) == -1)
-                        {
-                            n--;
-                            continue;
-
-                        }
-                        break;
-                    case 2:
-                        if (choice2(gameplayers, totaltok, n) == -1)
-                        {
-                            n--;
-                            continue;
-                        }
-                        break;
-                    case 3:
-                    {
-                        int number = choice3(gameplayers, card_discount, setblue, setorange, setgreen, n, totaltok, keepcard);      // 개발 카드 산 번호를 return 한다
-                        if (number == -1)
-                        {
-                            n--;
-                            continue;
-                        }
-                        if (number == 0)
-                            continue;
-                        int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
-                        emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
-                        break;
-                    }
-
-                    case 4:
-                    {
-                        int number = choice4(gameplayers, n, keepcard, setblue, setorange, setgreen, totaltok);      // 개발 카드 산 번호를 return 한다
-                        if (number == -1)
-                        {
-                            n--;
-                            continue;
-                        }
-                        int changecard = put_card(setblue, setorange, setgreen, mixblue, mixorange, mixgreen, number);  // 그 번호에  새로운 카드를 넣어주고, 무슨 종류의 카드인지 번호로 return한다. 
-                        emtycard[changecard]--;                                                     // 번호를 받아 그 색깔의 남은 카드를 하나 줄인다.
-                        break;
-                    }
-                    }
-                    rule(gameplayers, card_discount, user_have_nob, players, a, setnob);
-                    n++;
-                }
-                check_break = 1;
-                break;
-            }
-        }
-        if (check_break == 1)
-        {
-            break;
-        }
-    }
-
-    find_winner(gameplayers, players, card_discount);
-
-    return 0;
 }
