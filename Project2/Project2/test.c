@@ -448,7 +448,7 @@ int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 �
         if (!strcmp(taketok, "blue") == 0 && !strcmp(taketok, "red") == 0 && !strcmp(taketok, "green") == 0 && !strcmp(taketok, "brown") == 0 && !strcmp(taketok, "white") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
             printf("잘못 입력하셨습니다.\n\n");
-            return choice1(gameplayers, totaltok, turn);
+            return choice2(gameplayers, totaltok, turn);
         }
         //해당하는 토큰1개를 플레이어에게 전달
         //1개만 가져오기 때문에 4개 이하의 토큰도 가져올 수 있게 한다.
@@ -518,7 +518,7 @@ int choice2(int gameplayers[][7], int* totaltok, int turn) // 같은 색깔의 �
         if (!strcmp(taketok, "blue") == 0 && !strcmp(taketok, "red") == 0 && !strcmp(taketok, "green") == 0 && !strcmp(taketok, "brown") == 0 && !strcmp(taketok, "white") == 0)//잘못입력하면 다시 고르기
         {//잘못입력하면 다시 고르기
             printf("잘못 입력하셨습니다.\n\n");
-            return choice1(gameplayers, totaltok, turn);
+            return choice2(gameplayers, totaltok, turn);
         }
         //3개 이하의 토큰을 고르면 재귀함수를 활용하여 함수를 다시불러옴
         if (totaltok[0] < 4 && strcmp(taketok, "white") == 0)

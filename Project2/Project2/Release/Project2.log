@@ -5,8 +5,8 @@ C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(272,1): wa
 C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(273,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
 C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Project2\test.c(429,1): warning C4047: 'initializing': 'char' differs in levels of indirection from 'void *'
   Generating code
-  1 of 19 functions ( 5.3%) were compiled, the rest were copied from previous compilation.
+  2 of 19 functions (10.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Project2.vcxproj -> C:\Users\User\source\repos\kimyoungbin0\RTCM\Project2\Release\Project2.exe
